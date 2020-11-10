@@ -1,0 +1,124 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             Title="CLIENT"
+             xmlns:forms="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+             xmlns:transformations="clr-namespace:FFImageLoading.Transformations;assembly=FFImageLoading.Transformations"
+             x:Class="Barber.Views.ClientDetailPage">
+    <ContentPage.Content>
+       
+        <StackLayout Spacing="0">
+            <ScrollView VerticalScrollBarVisibility="Never">
+                <StackLayout Spacing="10" Padding="10">
+                    <StackLayout Orientation="Horizontal" Padding="10" BackgroundColor="#222222">
+                        <forms:CachedImage BackgroundColor="Transparent" x:Name="Avatar" 
+                    HeightRequest="50" WidthRequest="50"
+                    Aspect="AspectFit">
+                            <forms:CachedImage.Transformations>
+                                <transformations:CircleTransformation/>
+                            </forms:CachedImage.Transformations>
+                        </forms:CachedImage>
+                        <Label
+                    x:Name="FullName"
+                    TextColor="#fff"
+                    VerticalOptions="CenterAndExpand"
+                    FontAttributes="Bold"
+                    FontSize="17"/>
+                    </StackLayout>
+                    <StackLayout x:Name="ActionPan" Orientation="Horizontal" BackgroundColor="#222222" Padding="10">
+                        <StackLayout Orientation="Vertical" HorizontalOptions="CenterAndExpand">
+                            <Image Source="block" WidthRequest="24" HeightRequest="24"/>
+                            <Label Text="BLOCK" TextColor="#fff" x:Name="lblBlock"/>
+                            <StackLayout.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="blockClicked"/>
+                            </StackLayout.GestureRecognizers>
+                        </StackLayout>
+                        <StackLayout Orientation="Vertical" HorizontalOptions="CenterAndExpand">
+                            <Image Source="delete" WidthRequest="24" HeightRequest="24"/>
+                            <Label Text="DELETE" TextColor="#db6e53"/>
+                            <StackLayout.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="deleteClicked"/>
+                            </StackLayout.GestureRecognizers>
+                        </StackLayout>
+                    </StackLayout>
+                    <StackLayout x:Name="PhonePan">
+                        <StackLayout Orientation="Horizontal">
+                            <Label Text="PHONE NUMBERS" FontSize="17" TextColor="#fff" FontAttributes="Bold"/>
+                            <Label Text="ADD" TextColor="#ddc686" HorizontalOptions="EndAndExpand"/>
+                        </StackLayout>
+                        <StackLayout Orientation="Horizontal" BackgroundColor="#222222" Padding="10">
+                            <Entry TextColor="#fff" HorizontalOptions="FillAndExpand" Placeholder="Phone Number" PlaceholderColor="Gray"/>
+                            <Image Source="iAdd" WidthRequest="20" HeightRequest="20" HorizontalOptions="End"/>
+                        </StackLayout>
+                    </StackLayout>
+                    <StackLayout x:Name="NotePan">
+                        <Label Text="NOTES" FontSize="17" TextColor="#fff" FontAttributes="Bold"/>
+                        <StackLayout Padding="10" BackgroundColor="#222222">
+                            <Entry TextColor="#fff" HorizontalOptions="FillAndExpand" Placeholder="Notes" PlaceholderColor="Gray"/>
+                        </StackLayout>
+                    </StackLayout>
+                    <StackLayout HeightRequest="300" Orientation="Vertical" Spacing="0" x:Name="UpcomingPan" IsVisible="false">
+                        <Label FontAttributes="Bold" Margin="0, 0, 0, 5" FontSize="17" Text="UPCOMING APPOINTMENTS" TextColor="#fff"/>
+                        <CollectionView x:Name="Upcoming">
+                            <CollectionView.ItemsLayout>
+                                <LinearItemsLayout Orientation="Vertical" />
+                            </CollectionView.ItemsLayout>
+                            <CollectionView.ItemTemplate>
+                                <DataTemplate>
+                                    <StackLayout Spacing="2">
+                                        <StackLayout Margin="0, 0, 0, 5" Orientation="Vertical" Padding="10" Spacing="2" BackgroundColor="#222222">
+                                            <Label Text="{Binding client.fullname}" FontAttributes="Bold" TextColor="#fff"/>
+                                            <StackLayout Spacing="0" Orientation="Horizontal">
+                                                <Frame HeightRequest="20" WidthRequest="100" CornerRadius="10" HorizontalOptions="Start" VerticalOptions="Start" Margin="0" Padding="0" BackgroundColor="{Binding stateColor}">
+                                                    <Label Text="{Binding statename}" TextColor="Black" HorizontalOptions="Center" VerticalOptions="Center" 
+                                        HorizontalTextAlignment="Center" VerticalTextAlignment="Center"></Label>
+                                                </Frame>
+                                                <Label Text="{Binding date}" FontSize="15" TextColor="#fff" HorizontalOptions="EndAndExpand" VerticalOptions="Center"/>
+                                            </StackLayout>
+                                            <Label Text="{Binding time}" TextColor="Gray"/>
+                                            <StackLayout.GestureRecognizers>
+                                                <TapGestureRecognizer Tapped="bookItemClicked"/>
+                                            </StackLayout.GestureRecognizers>
+                                        </StackLayout>
+                                    </StackLayout>
+                                </DataTemplate>
+                            </CollectionView.ItemTemplate>
+                        </CollectionView>
+                    </StackLayout>
+                    <StackLayout HeightRequest="300" Orientation="Vertical" Spacing="0" x:Name="PastPan" IsVisible="false">
+                        <Label FontAttributes="Bold" Margin="0, 0, 0, 5" FontSize="17" Text="PAST APPOINTMENTS" TextColor="#fff"/>
+                        <CollectionView x:Name="Past">
+                            <CollectionView.ItemsLayout>
+                                <LinearItemsLayout Orientation="Vertical" />
+                            </CollectionView.ItemsLayout>
+                            <CollectionView.ItemTemplate>
+                                <DataTemplate>
+                                    <StackLayout Spacing="2">
+                                        <StackLayout Margin="0, 0, 0, 5" Orientation="Vertical" Padding="10" Spacing="2" BackgroundColor="#222222">
+                                            <Label Text="{Binding client.fullname}" FontAttributes="Bold" TextColor="#fff"/>
+                                            <StackLayout Spacing="0" Orientation="Horizontal">
+                                                <Frame HeightRequest="20" WidthRequest="100" CornerRadius="10" HorizontalOptions="Start" VerticalOptions="Start" Margin="0" Padding="0" BackgroundColor="{Binding stateColor}">
+                                                    <Label Text="{Binding statename}" TextColor="Black" HorizontalOptions="Center" VerticalOptions="Center" 
+                                        HorizontalTextAlignment="Center" VerticalTextAlignment="Center"></Label>
+                                                </Frame>
+                                                <Label Text="{Binding date}" FontSize="15" TextColor="#fff" HorizontalOptions="EndAndExpand" VerticalOptions="Center"/>
+                                            </StackLayout>
+                                            <Label Text="{Binding time}" TextColor="Gray"/>
+                                            <StackLayout.GestureRecognizers>
+                                                <TapGestureRecognizer Tapped="bookItemClicked"/>
+                                            </StackLayout.GestureRecognizers>
+                                        </StackLayout>
+                                    </StackLayout>
+                                </DataTemplate>
+                            </CollectionView.ItemTemplate>
+                        </CollectionView>
+                    </StackLayout>
+                </StackLayout>
+            </ScrollView>
+            <BoxView HeightRequest="1" VerticalOptions="EndAndExpand" BackgroundColor="#ddc686"/>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

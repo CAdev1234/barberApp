@@ -1,0 +1,93 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             BackgroundColor="#000"
+             xmlns:controls="clr-namespace:Barber.Controls;assembly=Barber"
+             x:Class="Barber.Views.ReviewBarberPage">
+    <NavigationPage.TitleView>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="auto"/>
+            </Grid.ColumnDefinitions>
+            <StackLayout Grid.Column="0" Padding="50, 10, 0, 0">
+                <Label Text="REVIEW BARBER" x:Name="TitleBar" FontSize="22" TextColor="#fff" VerticalOptions="Center"></Label>
+            </StackLayout>
+            <StackLayout Grid.Column="1">
+                <Button Text="SAVE"  Clicked="saveReview" BackgroundColor="Transparent" Padding="0, 0, 5, 0" FontSize="15" TextColor="#ddc686"></Button>
+            </StackLayout>
+        </Grid>
+    </NavigationPage.TitleView>
+    <ContentPage.Content>
+        <StackLayout Spacing="0">
+            <Grid Margin="10" Padding="10, 30, 10, 10" BackgroundColor="#222222">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="1"/>
+                    <RowDefinition Height="auto"/>
+                </Grid.RowDefinitions>
+                <Grid Grid.Row="0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                    </Grid.RowDefinitions>
+                    <Label Grid.Row="0" TextColor="#fff" HorizontalTextAlignment="Center" Text="Star Rating" HorizontalOptions="FillAndExpand"></Label>
+                    <Grid Grid.Row="1">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <StackLayout HeightRequest="40" WidthRequest="150" Grid.Column="1">
+                            <CollectionView x:Name="rateInfo" HorizontalOptions="End">
+                                <CollectionView.ItemsLayout>
+                                    <LinearItemsLayout Orientation="Horizontal" />
+                                </CollectionView.ItemsLayout>
+                                <CollectionView.ItemTemplate>
+                                    <DataTemplate>
+                                        <StackLayout>
+                                            <Label Text="{Binding count}" IsVisible="false"/>
+                                            <Image BackgroundColor="Transparent" WidthRequest="30" HeightRequest="30" HorizontalOptions="CenterAndExpand" Source="{Binding image}"/>
+                                            <StackLayout.GestureRecognizers>
+                                                <TapGestureRecognizer Tapped="ratingItemClicked"/>
+                                            </StackLayout.GestureRecognizers>
+                                        </StackLayout>
+                                    </DataTemplate>
+                                </CollectionView.ItemTemplate>
+                            </CollectionView>
+                            <!--<Button Text="kjdslkjds"/>-->
+                        </StackLayout>
+                    </Grid>
+                </Grid>
+                <BoxView HeightRequest="1"
+                 BackgroundColor="Black"
+                 Grid.Row="2"/>
+                <Grid Grid.Row="3">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="1"/>
+                        <RowDefinition Height="auto"/>
+                    </Grid.RowDefinitions>
+                    <Label Grid.Row="0" TextColor="#fff" FontSize="18" Padding="0, 10, 0, 0" Text="REVIEW" HorizontalOptions="Start"></Label>
+                    <Entry
+                    Grid.Row="1"
+                    Margin="0, 10, 0, 10"
+                    PlaceholderColor="Gray"
+                    x:Name="Content"
+                    TextColor="#fff"/>
+                    <BoxView HeightRequest="1"
+                 BackgroundColor="Black"
+                 Grid.Row="2"/>
+                    <Label Grid.Row="3" FontSize="12" TextColor="#fff" Padding="0, 10, 0, 0" Text="You must have completed and appointment with this barber before reviewing them. Any existing reviews will be updated." HorizontalOptions="Start"></Label>
+                </Grid>
+            </Grid>
+            <BoxView HeightRequest="1" BackgroundColor="#ddc686" VerticalOptions="EndAndExpand"/>
+        </StackLayout>
+        
+    </ContentPage.Content>
+</ContentPage>

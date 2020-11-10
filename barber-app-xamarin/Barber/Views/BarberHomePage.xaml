@@ -1,0 +1,387 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             NavigationPage.HasNavigationBar ="false"
+             x:Class="Barber.Views.BarberHomePage"
+             xmlns:maps="clr-namespace:Xamarin.Forms.Maps;assembly=Xamarin.Forms.Maps"
+             xmlns:magic="clr-namespace:MagicGradients;assembly=MagicGradients"
+             xmlns:badgeButton="clr-namespace:Xamarin.CustomControls;assembly=Xamarin.CustomControls.BadgeButton"
+             xmlns:forms="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+             xmlns:transformations="clr-namespace:FFImageLoading.Transformations;assembly=FFImageLoading.Transformations"
+             >
+    <ContentPage.Content>
+        <StackLayout x:Name="mainLayout" Spacing="0">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="150"/>
+                    <RowDefinition Height="50"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <StackLayout HorizontalOptions="End" WidthRequest="40" HeightRequest="40">
+                    <badgeButton:BadgeButton x:Name="NewBadge" Clicked="showNotificationPage" WidthRequest="40" HeightRequest="40" ImageSource="iAlarm" BadgeBackgroundColor="#ddc686" BadgeTextColor="#000" HideBadgeIfTextIsZero="True" BadgeText="0" BadgeFontSize="10" Margin="0, 10"></badgeButton:BadgeButton>
+                </StackLayout>
+                <StackLayout Grid.Row="0"
+                    HorizontalOptions="Center"
+                    VerticalOptions="Center"
+                    HeightRequest="100">
+                    <Image Source="profileBack" HeightRequest="100"/>
+                </StackLayout>
+                <StackLayout
+                    Grid.Row="0"
+                    HeightRequest="150"
+                    HorizontalOptions="CenterAndExpand"
+                    VerticalOptions="CenterAndExpand">
+
+                    <forms:CachedImage BackgroundColor="Transparent" Margin="0, 10, 0, 0" x:Name="Avatar" 
+                                           HeightRequest="110" WidthRequest="110"
+                                           Aspect="AspectFit">
+                        <forms:CachedImage.Transformations>
+                            <transformations:CircleTransformation/>
+                        </forms:CachedImage.Transformations>
+                        <forms:CachedImage.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="editProfile"/>
+                        </forms:CachedImage.GestureRecognizers>
+                    </forms:CachedImage>
+
+                    <Label
+                        x:Name="FullName"
+                        TextColor="#fff"
+                        HorizontalOptions="CenterAndExpand"
+                        VerticalOptions="CenterAndExpand"
+                        FontSize="24"/>
+                </StackLayout>
+                <Grid Grid.Row="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <StackLayout Grid.Column="0">
+                        <Label Style="{StaticResource info_label}" x:Name="lblInfo" Text="INFO" VerticalOptions="CenterAndExpand" HorizontalOptions="FillAndExpand"/>
+                        <BoxView Color="#ddc686" x:Name="bxInfo" HeightRequest="2"/>
+                        <StackLayout.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="tapInfoClicked"/>
+                        </StackLayout.GestureRecognizers>
+                    </StackLayout>
+                    <StackLayout Grid.Column="1">
+                        <StackLayout Padding="10, 0, 0, 0">
+                            <CollectionView x:Name="rateInfo" HorizontalOptions="End">
+                                <CollectionView.ItemsLayout>
+                                    <LinearItemsLayout Orientation="Horizontal" />
+                                </CollectionView.ItemsLayout>
+                                <CollectionView.ItemTemplate>
+                                    <DataTemplate>
+                                        <ImageButton Clicked="tapReviewClicked" BackgroundColor="Transparent" VerticalOptions="Center" HorizontalOptions="Fill" Source="{Binding image}"/>
+                                    </DataTemplate>
+                                </CollectionView.ItemTemplate>
+                            </CollectionView>
+                        </StackLayout>
+                        <BoxView Color="#ddc686" x:Name="bxReview" HeightRequest="2"/>
+                    </StackLayout>
+                    <StackLayout Grid.Column="2">
+                        <Label Style="{StaticResource info_label}" x:Name="lblService" Text="SERVICE" VerticalOptions="CenterAndExpand" HorizontalOptions="FillAndExpand"/>
+                        <BoxView Color="#ddc686" x:Name="bxService" HeightRequest="2"/>
+                        <StackLayout.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="tapServiceClicked"/>
+                        </StackLayout.GestureRecognizers>
+                    </StackLayout>
+                </Grid>
+
+                <StackLayout Grid.Row="2" x:Name="infoContent">
+                    <ScrollView VerticalScrollBarVisibility="Never">
+                        <StackLayout>
+                            <StackLayout Margin="5" x:Name="introPan" BackgroundColor="#222222" Padding="20">
+                                <StackLayout Orientation="Horizontal" HorizontalOptions="Start">
+                                    <Image Source="error" WidthRequest="30" HeightRequest="30"/>
+                                    <Label Text="COVID-19 Disclosure" Padding="5, 10" TextColor="#fff" HorizontalTextAlignment="Center" FontSize="23"/>
+                                </StackLayout>
+                                <Label Grid.Row="1" LineHeight="1.2" TextColor="#fff" FontSize="15" Text="As a result of the COVID-19 pandemic, many states and local jurisdictions have issued stay-at-home orders and restrictive measures that may prevent barbers in those locations from providing services. Even in those locations where it is permissible to provede services, please understand there is still a substantial risk of becoming exposed to or infected by the COVID-19 virus. By using mvpCut to schedule appointments, you agree to adhere to the COVID-19 Terms of Service."/>
+                            </StackLayout>
+                            <StackLayout Padding="10" BackgroundColor="#222222" Margin="0, 10, 0, 0" x:Name="infoPan" IsVisible="false">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Label Grid.Column="0" FontAttributes="Bold" Text="INFO" TextColor="#fff" FontSize="15"/>
+                                    <Label Grid.Column="1" FontAttributes="Bold" HorizontalTextAlignment="End" Text="EDIT" TextColor="#ddc686" FontSize="15">
+                                        <Label.GestureRecognizers>
+                                            <TapGestureRecognizer Tapped="editInfo"/>
+                                        </Label.GestureRecognizers>
+                                    </Label>
+                                </Grid>
+                                <Label x:Name="infobio" Text="good" TextColor="#fff"></Label>
+                                <Grid x:Name="infophonepan">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="auto"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <ImageButton Source="phone" WidthRequest="20" HeightRequest="20" BackgroundColor="Transparent"/>
+                                    <Label TextColor="#fff" Grid.Column="1" Text="3232323232" x:Name="infophone"/>
+                                </Grid>
+                            </StackLayout>
+                            <StackLayout HeightRequest="230" Spacing="0" Orientation="Vertical" Margin="0, 10, 0, 0">
+                                <StackLayout x:Name="LocationTitlePan" Spacing="0" Orientation="Horizontal" Padding="5, 0">
+                                    <Label Text="LOCATION HOURS" FontAttributes="Bold" TextColor="#fff" FontSize="16"></Label>
+                                    <Label Text="EDIT" FontAttributes="Bold" HorizontalTextAlignment="End" HorizontalOptions="FillAndExpand" TextColor="#ddc686" FontSize="16">
+                                        <Label.GestureRecognizers>
+                                            <TapGestureRecognizer Tapped="editLocation"/>
+                                        </Label.GestureRecognizers>
+                                    </Label>
+                                </StackLayout>
+                                <StackLayout Grid.Row="1" Padding="5">
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="200"/>
+                                        </Grid.RowDefinitions>
+                                        
+                                        <StackLayout x:Name="MapPan" Spacing="0" Grid.Row="0" HeightRequest="200">
+                                            <maps:Map MapType="Street" x:Name="myMap" HasZoomEnabled ="False" HasScrollEnabled="False"  HorizontalOptions="FillAndExpand"/>
+                                        </StackLayout>
+                                        
+                                        <StackLayout Grid.Row="0" Spacing="0">
+                                            <magic:GradientView x:Name="GradientPan" HeightRequest="200">
+                                                <magic:GradientView.GradientSource>
+                                                    <magic:LinearGradient Angle="90">
+                                                        <magic:GradientStop Color="#111111" Offset="1.5" />
+                                                        <magic:GradientStop Color="#1111111" Offset="0.2" />
+                                                    </magic:LinearGradient>
+                                                </magic:GradientView.GradientSource>
+                                            </magic:GradientView>
+                                        </StackLayout>
+                                        
+                                        <StackLayout x:Name="LocationPan" Grid.Row="0" Spacing="0" Padding="10">
+                                            <StackLayout Orientation="Horizontal">
+                                                <Label x:Name="ShopName" Text="" TextColor="#fff" ></Label>
+                                                <Frame x:Name="frLocationType" HeightRequest="20" Padding="10, 0" CornerRadius="10" HorizontalOptions="EndAndExpand" VerticalOptions="Start" Margin="0" BackgroundColor="#ddc686">
+                                                    <Label FontSize="12" x:Name="LocationType" Text="" TextColor="Black" HorizontalOptions="Center" VerticalOptions="Center" 
+                                                    HorizontalTextAlignment="Center" VerticalTextAlignment="Center"></Label>
+                                                </Frame>
+                                            </StackLayout>
+                                            <Label x:Name="StreetAddress" TextColor="#fff" Text=""></Label>
+                                            <CollectionView x:Name="Weeks" Margin="0, 10, 0, 0">
+                                                <CollectionView.ItemsLayout>
+                                                    <LinearItemsLayout Orientation="Vertical" />
+                                                </CollectionView.ItemsLayout>
+                                                <CollectionView.ItemTemplate>
+                                                    <DataTemplate>
+                                                        <StackLayout Orientation="Horizontal">
+                                                            <Label Padding="0, 0, 5, 0" Text="{Binding day}" FontSize="14" FontAttributes="Bold" TextColor="#fff"></Label>
+                                                            <Label Text="{Binding hour}" FontSize="12" TextColor="#fff"></Label>
+                                                        </StackLayout>
+                                                    </DataTemplate>
+                                                </CollectionView.ItemTemplate>
+                                            </CollectionView>
+                                        </StackLayout>
+                                        <StackLayout Grid.Row="0" VerticalOptions="FillAndExpand">
+                                            <StackLayout.GestureRecognizers>
+                                                <TapGestureRecognizer Tapped="myMap_Clicked"/>
+                                            </StackLayout.GestureRecognizers>
+                                        </StackLayout>
+                                    </Grid>
+                                </StackLayout>
+                            </StackLayout>
+                            <StackLayout Margin="5, 10" IsVisible="false" x:Name="actionPan" Padding="10" BackgroundColor="#222222">
+                                <ScrollView Orientation="Horizontal" HorizontalScrollBarVisibility="Never">
+                                    <Grid Grid.Row="2">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*"></ColumnDefinition>
+                                            <ColumnDefinition Width="*"></ColumnDefinition>
+                                            <ColumnDefinition Width="*"></ColumnDefinition>
+                                            <ColumnDefinition Width="*"></ColumnDefinition>
+                                            <ColumnDefinition Width="*"></ColumnDefinition>
+                                            <ColumnDefinition Width="*"></ColumnDefinition>
+                                        </Grid.ColumnDefinitions>
+                                        <StackLayout x:Name="actLocation" Grid.Column="0" HorizontalOptions="Center">
+                                            <ImageButton Clicked="editLocation" WidthRequest="40" x:Name="btnAdd"  BackgroundColor="Transparent" Source="add"></ImageButton>
+                                            <Label Text="LOCATION" x:Name="lblAdd" TextColor="#ddc686" HorizontalOptions="Center"/>
+                                        </StackLayout>
+                                        <StackLayout x:Name="actInfo" Grid.Column="1" HorizontalOptions="Center">
+                                            <ImageButton Clicked="editInfo" WidthRequest="40"  BackgroundColor="Transparent" Source="info"></ImageButton>
+                                            <Label Text="INFO" TextColor="#ddc686" HorizontalOptions="Center"/>
+                                        </StackLayout>
+                                        <StackLayout x:Name="actGallery" Grid.Column="2" HorizontalOptions="Center">
+                                            <ImageButton Clicked="openGallery" WidthRequest="40"  BackgroundColor="Transparent" Source="photo"></ImageButton>
+                                            <Label Text="PHOTOS" TextColor="#ddc686" HorizontalOptions="Center"/>
+                                        </StackLayout>
+                                        <StackLayout x:Name="actMobilePay" Grid.Column="3" HorizontalOptions="Center">
+                                            <ImageButton Clicked="mobilePay" WidthRequest="40" HeightRequest="40"  BackgroundColor="Transparent" Source="credit_card"></ImageButton>
+                                            <Label Text="MOBILE PAY" TextColor="#ddc686" HorizontalOptions="Center"/>
+                                        </StackLayout>
+                                        <StackLayout x:Name="actProLink" Grid.Column="4" HorizontalOptions="Center">
+                                            <ImageButton Clicked="proLink" WidthRequest="40"  BackgroundColor="Transparent" Source="profile_link"></ImageButton>
+                                            <Label Text="PRIFILE LINK" TextColor="#ddc686" HorizontalOptions="Center"/>
+                                        </StackLayout>
+                                        <StackLayout x:Name="actProPhoto" Grid.Column="5" HorizontalOptions="Center">
+                                            <ImageButton Clicked="proPhoto" WidthRequest="40"  BackgroundColor="Transparent" Source="photo"></ImageButton>
+                                            <Label Text="PRIFILE PHOTO" TextColor="#ddc686" HorizontalOptions="Center"/>
+                                        </StackLayout>
+                                    </Grid>
+                                </ScrollView>
+                            </StackLayout>
+                            <StackLayout IsVisible="false" x:Name="galleryPan" Margin="0, 5, 0, 0">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Label Text="PHOTOS" FontAttributes="Bold" TextColor="#fff" FontSize="16"></Label>
+                                    <Label Grid.Column="1" Text="ADD" FontAttributes="Bold" HorizontalOptions="End" TextColor="#ddc686" FontSize="16">
+                                        <Label.GestureRecognizers>
+                                            <TapGestureRecognizer Tapped="openGallery"/>
+                                        </Label.GestureRecognizers>
+                                    </Label>
+                                </Grid>
+                                <CollectionView x:Name="Gallerys" VerticalScrollBarVisibility="Never" Margin="0, 5, 0, 0">
+                                    <CollectionView.ItemsLayout>
+                                        <GridItemsLayout Orientation="Vertical"
+                                    Span="2" />
+                                    </CollectionView.ItemsLayout>
+                                    <CollectionView.ItemTemplate>
+                                        <DataTemplate>
+                                            <StackLayout Padding="3">
+                                                <Frame Grid.Row="0" Padding="2" OutlineColor="#fff"  CornerRadius="2" HeightRequest="150" WidthRequest="150" IsClippedToBounds="true">
+                                                    <Grid>
+                                                        <ImageButton Clicked="MyImage_Clicked"
+                                                                     x:Name="MyImage" Source="{Binding image}" Aspect="AspectFill"/>
+                                                    </Grid>
+                                                </Frame>
+                                            </StackLayout>
+                                        </DataTemplate>
+                                    </CollectionView.ItemTemplate>
+                                </CollectionView>
+                            </StackLayout>
+                        </StackLayout>
+                    </ScrollView>
+                </StackLayout>
+                <StackLayout Grid.Row="2" x:Name="reviewContent" IsVisible="False">
+                    <Label Padding="5" Text="REVIEWS" HorizontalOptions="Start" TextColor="#fff" FontSize="16"></Label>
+                    <StackLayout x:Name="NoReview" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand">
+                        <Label Text="You have no review yet" FontSize="20" TextColor="Gray" FontAttributes="Bold" HorizontalTextAlignment="Center" />
+                        <Label Padding="10, 0" HorizontalTextAlignment="Center" FontSize="15" TextColor="Gray" Text="Clients can review your service once they have completed an appointment with you"/>
+                    </StackLayout>
+                    <StackLayout IsVisible="false" Spacing="0" x:Name="HasReview">
+                        <CollectionView x:Name="Reviews" Grid.Row="2">
+                            <CollectionView.ItemsLayout>
+                                <LinearItemsLayout Orientation="Vertical" />
+                            </CollectionView.ItemsLayout>
+                            <CollectionView.ItemTemplate>
+                                <DataTemplate>
+                                    <StackLayout Spacing="0">
+                                        <StackLayout BackgroundColor="#222222" Margin="3">
+                                            <Grid Padding="5, 10, 5, 5" RowSpacing="0">
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition Height="50" />
+                                                    <RowDefinition Height="Auto" />
+                                                    <RowDefinition Height="Auto" />
+                                                </Grid.RowDefinitions>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="Auto" />
+                                                    <ColumnDefinition Width="Auto" />
+                                                    <ColumnDefinition Width="*" />
+                                                    <ColumnDefinition Width="100" />
+                                                </Grid.ColumnDefinitions>
+                                                <forms:CachedImage Margin="0, 0, 10, 10" x:Name="" Source="{Binding Client.avatar}"
+                                                        HeightRequest="50" WidthRequest="50"
+                                                        Aspect="AspectFit" BackgroundColor="Transparent">
+                                                    <forms:CachedImage.Transformations>
+                                                        <transformations:CircleTransformation/>
+                                                    </forms:CachedImage.Transformations>
+                                                </forms:CachedImage>
+                                                <StackLayout Grid.Column="1">
+                                                    <Label
+                                                            Text="{Binding Client.fullname}"
+                                                            FontSize="15"
+                                                            TextColor="#fff"
+                                                            VerticalOptions="Start"
+                                                            FontAttributes="Bold" />
+                                                    <Label
+                                                            Text="{Binding created_at}"
+                                                            FontSize="13"
+                                                            TextColor="#fff"
+                                                            VerticalOptions="End" />
+                                                </StackLayout>
+                                                <Label Grid.Row="1"
+                                                        Grid.Column="0"
+                                                        Grid.ColumnSpan="3"
+                                                        Text="{Binding content}"
+                                                        TextColor="#fff"
+                                                        FontSize="13"
+                                                        HorizontalOptions="Fill"
+                                                        VerticalOptions="Start" />
+                                                <CollectionView ItemsSource="{Binding RateImages}" Grid.Column="3" VerticalOptions="Start" HorizontalOptions="End">
+                                                    <CollectionView.ItemsLayout>
+                                                        <LinearItemsLayout Orientation="Horizontal" />
+                                                    </CollectionView.ItemsLayout>
+                                                    <CollectionView.ItemTemplate>
+                                                        <DataTemplate>
+                                                            <ImageButton Clicked="tapReviewClicked" BackgroundColor="Transparent" VerticalOptions="Center" HorizontalOptions="Fill" WidthRequest="20" HeightRequest="20" Source="{Binding image}"/>
+                                                        </DataTemplate>
+                                                    </CollectionView.ItemTemplate>
+                                                </CollectionView>
+                                            </Grid>
+                                        </StackLayout>
+                                    </StackLayout>
+                                </DataTemplate>
+                            </CollectionView.ItemTemplate>
+                        </CollectionView>
+                    </StackLayout>
+                </StackLayout>
+                <StackLayout Grid.Row="2" x:Name="serviceContent" IsVisible="False">
+                    <Grid HeightRequest="50" Padding="5">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Label Grid.Column="0" Text="SERVICES" HorizontalOptions="Start" TextColor="#fff" FontSize="16"></Label>
+                        <Label Grid.Column="1" Text="ADD" TextColor="#ddc686" HorizontalOptions="End" FontSize="16">
+                            <Label.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="createService"/>
+                            </Label.GestureRecognizers>
+                        </Label>
+                    </Grid>
+                    <StackLayout x:Name="NoService" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand">
+                        <Label Text="You have no services" FontSize="20" TextColor="Gray" FontAttributes="Bold" HorizontalTextAlignment="Center" />
+                        <Label Padding="10, 0" HorizontalTextAlignment="Center" FontSize="15" TextColor="Gray" Text="You must add services in order to book appointments."/>
+                    </StackLayout>
+                    <CollectionView IsVisible="false"  x:Name="Services" Margin="0, 5, 0, 0">
+                        <CollectionView.ItemsLayout>
+                            <LinearItemsLayout Orientation="Vertical" />
+                        </CollectionView.ItemsLayout>
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate>
+                                <StackLayout Spacing="0">
+                                    <StackLayout BackgroundColor="#222222" Margin="3">
+                                        <Grid Padding="10" RowSpacing="3">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="auto"></ColumnDefinition>
+                                                <ColumnDefinition Width="*"></ColumnDefinition>
+                                            </Grid.ColumnDefinitions>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="auto"/>
+                                                <RowDefinition Height="auto"/>
+                                                <RowDefinition Height="auto"/>
+                                            </Grid.RowDefinitions>
+                                            <Label Grid.Row="0" Text="{Binding name}" FontSize="15" FontAttributes="Bold" TextColor="#fff"></Label>
+                                            <Label Grid.Row="1" Text="{Binding duration}" FontSize="13" TextColor="#fff"></Label>
+                                            <Label Grid.Row="2" Text="{Binding description}" FontSize="13" TextColor="#fff"></Label>
+                                            <Label Grid.Row="0" Grid.Column="1" Text="{Binding strprice}" HorizontalOptions="End" FontSize="13" TextColor="#fff"></Label>
+                                        </Grid>
+                                    </StackLayout>
+                                    <StackLayout.GestureRecognizers>
+                                        <TapGestureRecognizer Tapped="editService"/>
+                                    </StackLayout.GestureRecognizers>
+                                </StackLayout>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+                    
+                </StackLayout>
+            </Grid>
+            <BoxView VerticalOptions="EndAndExpand" HeightRequest="1" BackgroundColor="#ddc686"/>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

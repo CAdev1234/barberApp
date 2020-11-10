@@ -1,0 +1,119 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             Title="PAYMENT METHOD"
+             xmlns:local="clr-namespace:Barber"
+             x:Class="Barber.Views.PaymentMethodPage">
+    <ContentPage.Content>
+        <ScrollView>
+            <Grid VerticalOptions="CenterAndExpand"  >
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="3.3*"/>
+                    <ColumnDefinition Width="3.3*"/>
+                    <ColumnDefinition Width="3.3*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="60"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <ImageButton Source="ic_paypal"
+                         Command="{Binding OnPaymentOptionSelected}"
+                         CommandParameter="{x:Static local:PaymentOptionEnum.PayPal}"
+                         BorderColor="Gray"
+                         BorderWidth="1"
+                         CornerRadius="0"
+                         Grid.Column="2"
+                         Grid.Row="0"/>
+
+
+                <Grid  Padding="20"
+                   ColumnSpacing="20"
+                   VerticalOptions="CenterAndExpand"
+                   Grid.Column="0"
+                   Grid.Row="1"
+                   Grid.ColumnSpan="3"
+                   IsVisible="False">
+                    <Grid.Triggers>
+                        <DataTrigger TargetType="Grid"
+                             Binding="{Binding PaymentOptionEnum}"
+                             Value="CreditCard">
+                            <Setter Property="IsVisible" Value="true"/>
+                        </DataTrigger>
+                    </Grid.Triggers>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="5*"/>
+                        <ColumnDefinition Width="5*"/>
+                    </Grid.ColumnDefinitions>
+                    <Label Text="Pay with card"
+                     FontAttributes="Bold"
+                     Grid.Row="0"
+                     Grid.Column="0"
+                     Grid.ColumnSpan="2"
+                     HorizontalOptions="CenterAndExpand"
+                     TextColor="Black"/>
+
+                    <Label Text="Card Number"
+                        Grid.Row="1"
+                        Grid.Column="0"
+                        Grid.ColumnSpan="2"/>
+
+                    <Entry BackgroundColor="Transparent"
+                        Margin="0,0,0,10"
+                        Text="{Binding CardInfo.CardNumber}"
+                        Keyboard="Numeric"
+                        Grid.Column="0"
+                        Grid.ColumnSpan="2"
+                        Grid.Row="2"/>
+
+
+                    <Label Text="Expiry"
+                            Grid.Row="3"
+                            Grid.ColumnSpan="2"
+                            Grid.Column="0"/>
+
+                    <Entry Placeholder="MM/YY"
+                               Keyboard="Numeric"
+                               Text="{Binding CardInfo.Expiry}"
+                               BackgroundColor="Transparent"
+                               Grid.Column="0"
+                               Grid.Row="4"/>
+
+
+                    <Label Text="CVV"
+                           Grid.Row="3"
+                            Grid.Column="1"/>
+
+                    <Entry Keyboard="Numeric"
+                            BackgroundColor="Transparent"
+                            Grid.Column="1"
+                            Text="{Binding CardInfo.Cvv}"
+                            Grid.Row="4"/>
+
+
+                    <Button Text="Pay"
+                            HorizontalOptions="FillAndExpand"
+                            BackgroundColor="Blue"
+                            Grid.Row="5"
+                            Grid.Column="0"
+                            Grid.ColumnSpan="2"
+                            TextColor="White"
+                            HeightRequest="50"
+                            Command="{Binding PayCommand}"/>
+                </Grid>
+            </Grid>
+        </ScrollView>
+
+    </ContentPage.Content>
+</ContentPage>

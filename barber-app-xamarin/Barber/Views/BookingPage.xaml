@@ -1,0 +1,197 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             Title="BOOK APPOINTMENT"
+             BackgroundColor="#000"
+             x:Class="Barber.Views.BookingPage"
+             xmlns:forms="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+             xmlns:controls="clr-namespace:Barber.Controls;assembly=Barber"
+             xmlns:transformations="clr-namespace:FFImageLoading.Transformations;assembly=FFImageLoading.Transformations">
+
+    <ContentPage.Content>
+        <StackLayout Spacing="0">
+            <ScrollView Padding="10, 20, 10, 10" VerticalScrollBarVisibility="Never">
+                <StackLayout>
+                    <StackLayout>
+                        <Grid Padding="10" BackgroundColor="#222222" x:Name="profilePan">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto" />
+                                <RowDefinition Height="auto" />
+                                <RowDefinition Height="auto" />
+                                <RowDefinition Height="auto" />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <forms:CachedImage Grid.Row="0" Grid.RowSpan="3" x:Name="Avatar" Margin="0, 0, 0, 5" Source="profile"
+                                           HeightRequest="80" WidthRequest="80"
+                                           Aspect="AspectFit" BackgroundColor="Transparent">
+                                <forms:CachedImage.Transformations>
+                                    <transformations:CircleTransformation/>
+                                </forms:CachedImage.Transformations>
+                            </forms:CachedImage>
+                            <Label Grid.Column="1"
+                                            x:Name="UserName"
+                                            FontSize="15"
+                                            TextColor="#fff"
+                                            VerticalOptions="Center"
+                                            FontAttributes="Bold" />
+                            <Label Grid.Row="1"
+                                            Grid.Column="1"
+                                            x:Name="ShopName"
+                                            FontSize="13"
+                                            TextColor="#fff"
+                                            VerticalOptions="End" />
+                            <Label Grid.Row="2"
+                                            Grid.Column="1"
+                                            x:Name="LocationType"
+                                            FontSize="13"
+                                            TextColor="#fff"
+                                            VerticalOptions="Fill" />
+                            <BoxView HeightRequest="1"
+                                            BackgroundColor="Black"
+                                            Grid.Row="3"
+                                            Grid.ColumnSpan="2"/>
+                            <Label Grid.Row="4"
+                                            Grid.Column="0"
+                                            Grid.ColumnSpan="2"
+                                            Text="As a result of the COVID-19 pandemic, many states and local jurisdictions have issued stay-at-home orders and restrictive measures that may prevent barbers in those locations from providing services. Even in those locations where it is permissible to provede services, please understand there is still a substantial risk of becoming exposed to or infected by the COVID-19 virus. By using mvpCut to schedule appointments, you agree to adhere to the COVID-19 Terms of Service."
+                                            TextColor="#fff"
+                                            FontSize="13"
+                                            HorizontalOptions="Fill"
+                                            VerticalOptions="Start" />
+
+                        </Grid>
+                    </StackLayout>
+                    <StackLayout x:Name="servicePan" Margin="0, 10, 0, 0">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="20"/>
+                                <RowDefinition Height="auto"/>
+                            </Grid.RowDefinitions>
+                            <Label Grid.Row="0" Text="SELECT SERVICE" TextColor="#fff" FontSize="15"/>
+                            <StackLayout Grid.Row="1">
+                                <CollectionView BackgroundColor="#222222" x:Name="Services">
+                                    <CollectionView.ItemsLayout>
+                                        <LinearItemsLayout Orientation="Vertical" />
+                                    </CollectionView.ItemsLayout>
+                                    <CollectionView.ItemTemplate>
+                                        <DataTemplate>
+                                            <Grid Padding="10, 5, 10, 0">
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="auto"/>
+                                                    <ColumnDefinition Width="auto"/>
+                                                    <ColumnDefinition Width="*"/>
+                                                </Grid.ColumnDefinitions>
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition Height="auto"/>
+                                                    <RowDefinition Height="auto"/>
+                                                    <RowDefinition Height="1"/>
+                                                </Grid.RowDefinitions>
+                                                <Label Text="{Binding check}" IsVisible="false"></Label>
+                                                <Image Grid.RowSpan="2" Source="{Binding image}" WidthRequest="25" HeightRequest="25" VerticalOptions="FillAndExpand"/>
+                                                <Label Grid.Row="0" Padding="5, 0, 0, 0" Grid.Column="1" Text="{Binding name}" FontSize="15" FontAttributes="Bold" TextColor="#fff"></Label>
+                                                <Label Grid.Row="1" Padding="5, 0, 0, 0" Grid.Column="1" Text="{Binding duration}" FontSize="13" TextColor="#fff"></Label>
+                                                <Label Grid.Row="0" Grid.RowSpan="2" Grid.Column="2" Grid.ColumnSpan="2" Text="{Binding price}" VerticalOptions="Center" HorizontalOptions="End" FontSize="13" TextColor="#fff"></Label>
+                                                <BoxView HeightRequest="1"
+                                                            BackgroundColor="Black"
+                                                            Grid.Row="2"
+                                                            Grid.ColumnSpan="4"/>
+                                                <Grid.GestureRecognizers>
+                                                    <TapGestureRecognizer Tapped="serviceItemClicked"/>
+                                                </Grid.GestureRecognizers>
+                                            </Grid>
+                                        </DataTemplate>
+                                    </CollectionView.ItemTemplate>
+                                </CollectionView>
+                            </StackLayout>
+                        </Grid>
+                    </StackLayout>
+                    
+                    <StackLayout Margin="0, 10, 0, 0">
+                        <Grid  x:Name="paymentPan" >
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto"/>
+                                <RowDefinition Height="50"/>
+                            </Grid.RowDefinitions>
+                            <Label Grid.Row="0" Text="PAYMENT METHOD" TextColor="#fff" FontSize="15"/>
+                            <StackLayout Grid.Row="1"  BackgroundColor="#222222" Padding="10">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="auto"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid Grid.Column="0" HorizontalOptions="FillAndExpand">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="30"/>
+                                            <ColumnDefinition Width="*"/>
+                                        </Grid.ColumnDefinitions>
+                                        <Image Grid.Column="0" x:Name="mobilePay" Source="check" WidthRequest="30" HeightRequest="30" VerticalOptions="Start"/>
+                                        <Label Grid.Column="1" Padding="5, 3, 0, 0" Text="Mobile Pay" TextColor="#fff" FontSize="15"/>
+                                        <Grid.GestureRecognizers>
+                                            <TapGestureRecognizer Tapped="paymentItemClicked"/>
+                                        </Grid.GestureRecognizers>
+                                    </Grid>
+                                    <Grid Grid.Column="1" HorizontalOptions="Center">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="30"/>
+                                            <ColumnDefinition Width="*"/>
+                                        </Grid.ColumnDefinitions>
+                                        <Image Grid.Column="0" Source="uncheck" WidthRequest="30" HeightRequest="30" VerticalOptions="Start"/>
+                                        <Label Grid.Column="1" Padding="5, 3, 0, 0" Text="In Shop" TextColor="#fff" FontSize="15" VerticalOptions="FillAndExpand"/>
+                                        <Grid.GestureRecognizers>
+                                            <TapGestureRecognizer Tapped="paymentItemClicked"/>
+                                        </Grid.GestureRecognizers>
+                                    </Grid>
+                                </Grid>
+
+                            </StackLayout>
+                        </Grid>
+                    </StackLayout>
+                    <StackLayout Margin="0, 10, 0, 0">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto"></RowDefinition>
+                                <RowDefinition Height="auto"></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <Label Grid.Row="0" Text="DATE AND TIME" TextColor="#fff" FontSize="15"/>
+                            <StackLayout Grid.Row="1"  BackgroundColor="#222222" Padding="10, 0, 10, 10" x:Name="datatimePan">
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="auto"></RowDefinition>
+                                        <RowDefinition Height="auto"></RowDefinition>
+                                    </Grid.RowDefinitions>
+                                    <DatePicker x:Name="bookDate" Format="MM/dd/yyyy" DateSelected="bookDate_DateSelected" TextColor="#fff" Grid.Row="0"></DatePicker>
+                                    <StackLayout HeightRequest="40" Grid.Row="1">
+                                        <CollectionView x:Name="Times">
+                                            <CollectionView.ItemsLayout>
+                                                <LinearItemsLayout Orientation="Horizontal" />
+                                            </CollectionView.ItemsLayout>
+                                            <CollectionView.ItemTemplate>
+                                                <DataTemplate>
+                                                    <Grid Padding="5, 0, 5, 0">
+                                                        <Button Text="{Binding hour}" Clicked="timeSelected" CornerRadius="20" TextColor="#ddc686" BackgroundColor="#000"/>
+                                                    </Grid>
+                                                </DataTemplate>
+                                            </CollectionView.ItemTemplate>
+                                        </CollectionView>
+                                    </StackLayout>
+                                </Grid>
+                            </StackLayout>
+                        </Grid>
+                    </StackLayout>
+                </StackLayout>
+            </ScrollView>
+            
+            <BoxView Margin="0" VerticalOptions="EndAndExpand" HeightRequest="1" BackgroundColor="#ddc686"/>
+            <StackLayout Padding="10, 5" HeightRequest="50" BackgroundColor="#222222" x:Name="bookPan" HorizontalOptions="Fill" Orientation="Horizontal">
+                <Label x:Name="totalPrice" Text="$0" TextColor="#fff" FontSize="18" VerticalTextAlignment="Center" HorizontalTextAlignment="Start" HorizontalOptions="FillAndExpand"/>
+                <Button Text="Book" VerticalOptions="Center" Clicked="bookClicked" BackgroundColor="#ddc686" HorizontalOptions="End"></Button>
+            </StackLayout>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

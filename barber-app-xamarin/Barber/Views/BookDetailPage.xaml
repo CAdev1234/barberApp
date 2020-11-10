@@ -1,0 +1,227 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             BackgroundColor="#000"
+             x:Class="Barber.Views.BookDetailPage"
+             IsTabStop="True"
+             xmlns:forms="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+             xmlns:transformations="clr-namespace:FFImageLoading.Transformations;assembly=FFImageLoading.Transformations">
+
+    <NavigationPage.TitleView>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="auto"/>
+            </Grid.ColumnDefinitions>
+            <StackLayout Grid.Column="0" Padding="40, 0, 0, 0" VerticalOptions="Center">
+                <Label Text="APPOINTMENT" x:Name="TitleBar" FontSize="22" TextColor="#fff" VerticalOptions="Center"/>
+            </StackLayout>
+            <StackLayout Grid.Column="1" VerticalOptions="Center">
+                <Label IsVisible="false" x:Name="btnDone" Text="DONE" BackgroundColor="Transparent" Padding="0, 0, 5, 0" FontSize="15" TextColor="#ddc686">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="done_Clicked"/>
+                    </Label.GestureRecognizers>
+                </Label>
+            </StackLayout>
+        </Grid>
+    </NavigationPage.TitleView>
+    
+    <ContentPage.Content>
+        <StackLayout Spacing="0" x:Name="mainContent" IsVisible="false">
+            <ScrollView Padding="5, 20, 5, 10" VerticalScrollBarVisibility="Never">
+                <Grid RowSpacing="1">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                    </Grid.RowDefinitions>
+                    <StackLayout Grid.Row="0">
+                        <Grid Padding="10" BackgroundColor="#222222" x:Name="profilePan">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto" />
+                                <RowDefinition Height="auto" />
+                                <RowDefinition Height="auto" />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="auto" />
+                            </Grid.ColumnDefinitions>
+                            <forms:CachedImage Grid.Row="0" Grid.RowSpan="3" x:Name="Avatar" Source="profile"
+                                           HeightRequest="80" WidthRequest="80"
+                                           Aspect="AspectFit" BackgroundColor="Transparent">
+                                <forms:CachedImage.Transformations>
+                                    <transformations:CircleTransformation/>
+                                </forms:CachedImage.Transformations>
+                            </forms:CachedImage>
+                            <Label Grid.Column="1"
+                                    Text=""
+                                   x:Name="barbername"
+                                    FontSize="15"
+                                    TextColor="#fff"
+                                    VerticalOptions="Center"
+                                    FontAttributes="Bold" />
+                            <Label Grid.Row="1"
+                                    Grid.Column="1"
+                                    Text=""
+                                    x:Name="services"
+                                    FontSize="13"
+                                    TextColor="#fff"
+                                    VerticalOptions="End" />
+                            <Frame x:Name="frState" Grid.Row="2" Grid.Column="1" HeightRequest="20" WidthRequest="100" CornerRadius="10" HorizontalOptions="Start" VerticalOptions="Start" Margin="0" Padding="0" BackgroundColor="#ddc686">
+                                <Label x:Name="state" Text="REQUESTED" TextColor="Black" HorizontalOptions="Center" VerticalOptions="Center" 
+                                    HorizontalTextAlignment="Center" VerticalTextAlignment="Center"></Label>
+                            </Frame>
+                            <Label Grid.Row="0" Grid.Column="2"
+                                   TextColor="#fff"
+                                   x:Name="proDate"
+                                   VerticalOptions="Center"
+                                   Grid.RowSpan="3"></Label>
+                        </Grid>
+                    </StackLayout>
+                    <StackLayout Grid.Row="1" HeightRequest="50" x:Name="actionPan">
+                        <StackLayout BackgroundColor="#222222" Padding="10">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Grid Grid.Column="0" HorizontalOptions="Center">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="20"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Image Grid.Column="0" x:Name="imgaction1" Source="cancel" WidthRequest="20" HeightRequest="20" VerticalOptions="Center"/>
+                                    <Label Grid.Column="1" VerticalOptions="Center" x:Name="lblaction1" Padding="5, 3, 0, 0" Text="CANCEL" TextColor="#ddc686" FontSize="15" VerticalTextAlignment="Center"/>
+                                    <Grid.GestureRecognizers>
+                                        <TapGestureRecognizer Tapped="action1_Clicked"/>
+                                    </Grid.GestureRecognizers>
+                                </Grid>
+                                <Grid IsVisible="false" x:Name="action3" Grid.Column="1" HorizontalOptions="Center">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="30"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Image Grid.Column="0" x:Name="imgaction3" Source="noshow" WidthRequest="20" HeightRequest="20" VerticalOptions="Center"/>
+                                    <Label Grid.Column="1" x:Name="lblaction3" Padding="5, 3, 0, 0" Text="NO-SHOW" TextColor="#fff" FontSize="15" VerticalOptions="Center" VerticalTextAlignment="Center"/>
+                                    <Grid.GestureRecognizers>
+                                        <TapGestureRecognizer Tapped="action3_Clicked"/>
+                                    </Grid.GestureRecognizers>
+                                </Grid>
+                                <Grid Grid.Column="2" HorizontalOptions="Center">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="30"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Image x:Name="imgaction2" Grid.Column="0" Source="share" WidthRequest="20" HeightRequest="20" VerticalOptions="Center"/>
+                                    <Label x:Name="lblaction2" Grid.Column="1" Padding="5, 3, 0, 0" Text="SHARE" TextColor="#ddc686" FontSize="15" VerticalOptions="Center" VerticalTextAlignment="Center"/>
+                                    <Grid.GestureRecognizers>
+                                        <TapGestureRecognizer Tapped="action2_Clicked"/>
+                                    </Grid.GestureRecognizers>
+                                </Grid>
+                            </Grid>
+                        </StackLayout>
+                    </StackLayout>
+                    <StackLayout Grid.Row="2" Padding="10" BackgroundColor="#222222">
+                        <StackLayout HorizontalOptions="Fill" Orientation="Horizontal">
+                            <Label x:Name="exDate" Text="2020-08-26" TextColor="#fff" FontSize="17"/>
+                            <Label IsVisible="false" x:Name="export" Text="EXPORT" TextColor="#ddc686" FontSize="15" HorizontalTextAlignment="End" HorizontalOptions="FillAndExpand">
+                                <Label.GestureRecognizers>
+                                    <TapGestureRecognizer Tapped="exportDate"/>
+                                </Label.GestureRecognizers>
+                            </Label>
+                        </StackLayout>
+                        <Label x:Name="exTime" Text="4.00 PM-5.00 PM" TextColor="#777777" FontSize="15"/>
+                    </StackLayout>
+                    <StackLayout Grid.Row="3" Padding="10" BackgroundColor="#222222">
+                        <Label x:Name="allCount" Text="1 Services" TextColor="#fff" FontSize="17"/>
+                        <Label x:Name="allName" Text="Trim" TextColor="#777777" FontSize="15"/>
+                    </StackLayout>
+                    <StackLayout x:Name="ClientInfoPan" Grid.Row="4" Padding="10" BackgroundColor="#222222">
+                        <StackLayout Orientation="Horizontal" HorizontalOptions="Fill">
+                            <Label Text="Info" TextColor="#fff" FontSize="17" HorizontalTextAlignment="Start"/>
+                            <Label x:Name="direction" Text="DIRECTIONS" TextColor="#ddc686" FontSize="15" HorizontalTextAlignment="End" HorizontalOptions="FillAndExpand">
+                                <Label.GestureRecognizers>
+                                    <TapGestureRecognizer Tapped="directionInfo"/>
+                                </Label.GestureRecognizers>
+                            </Label>
+                        </StackLayout>
+                        <Grid x:Name="infophonepan">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="auto"/>
+                                <ColumnDefinition Width="auto"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <ImageButton Clicked="callPhone" Source="phone" WidthRequest="20" HeightRequest="20" BackgroundColor="Transparent"/>
+                            <ImageButton Clicked="sendSms" Grid.Column="1" Margin="3, 0, 0, 0" Source="sms" WidthRequest="20" HeightRequest="20" BackgroundColor="Transparent"/>
+                            <Label TextColor="#fff" Grid.Column="2" Text="3232323232" x:Name="infophone"/>
+                        </Grid>
+                        <Label x:Name="location" Text="California" TextColor="#777777" FontSize="15"/>
+                    </StackLayout>
+                    <StackLayout  Grid.Row="5"  BackgroundColor="#222222" Padding="10" x:Name="bookPan">
+                        <Label x:Name="price" Grid.Column="0" TextColor="#fff" FontSize="15" VerticalTextAlignment="Center" HorizontalTextAlignment="Start"></Label>
+                    </StackLayout>
+
+                    <StackLayout x:Name="commentPan" IsVisible="false" Grid.Row="6" Padding="0, 10" HeightRequest="300">
+                        <CollectionView x:Name="BookComments">
+                            <CollectionView.ItemsLayout>
+                                <LinearItemsLayout Orientation="Vertical" />
+                            </CollectionView.ItemsLayout>
+                            <CollectionView.ItemTemplate>
+                                <DataTemplate>
+                                    <StackLayout>
+                                        <StackLayout IsVisible="{Binding isReceive}" Orientation="Vertical" Padding="10">
+                                            <StackLayout Orientation="Horizontal">
+                                                <forms:CachedImage Source="{Binding sender.avatar}"
+                                                    HeightRequest="40" WidthRequest="40"
+                                                    Aspect="AspectFit" BackgroundColor="Transparent">
+                                                    <forms:CachedImage.Transformations>
+                                                        <transformations:CircleTransformation/>
+                                                    </forms:CachedImage.Transformations>
+                                                </forms:CachedImage>
+                                                <Frame CornerRadius="10" HorizontalOptions="FillAndExpand" Padding="10, 5" VerticalOptions="Center" BackgroundColor="#222222">
+                                                    <Label Text="{Binding comment}" TextColor="#fff"></Label>
+                                                </Frame>
+                                            </StackLayout>
+                                            <Label HorizontalTextAlignment="End" FontSize="12" VerticalOptions="Center" Text="{Binding created_at}" TextColor="#fff"></Label>
+                                        </StackLayout>
+                                        <StackLayout IsVisible="{Binding isSend}" Orientation="Vertical" Padding="10">
+                                            <StackLayout Orientation="Horizontal" >
+                                                <Frame CornerRadius="10" HorizontalOptions="FillAndExpand" Padding="10, 5" VerticalOptions="Center" BackgroundColor="#222222">
+                                                    <Label Text="{Binding comment}" TextColor="#fff"></Label>
+                                                </Frame>
+                                                <forms:CachedImage Source="{Binding sender.avatar}"
+                                                    HeightRequest="40" WidthRequest="40"
+                                                    Aspect="AspectFit" BackgroundColor="Transparent">
+                                                    <forms:CachedImage.Transformations>
+                                                        <transformations:CircleTransformation/>
+                                                    </forms:CachedImage.Transformations>
+                                                </forms:CachedImage>
+                                            </StackLayout>
+                                            <Label VerticalOptions="Center" FontSize="12" WidthRequest="100" Text="{Binding created_at}" TextColor="#fff"></Label>
+                                        </StackLayout>
+
+                                    </StackLayout>
+                                </DataTemplate>
+                            </CollectionView.ItemTemplate>
+                        </CollectionView>
+
+                    </StackLayout>
+                </Grid>
+            </ScrollView>
+            
+            <BoxView VerticalOptions="EndAndExpand" HeightRequest="1" BackgroundColor="#ddc686"/>
+            <StackLayout Padding="10,0" BackgroundColor="#222222" Orientation="Horizontal" HeightRequest="70" HorizontalOptions="Fill">
+                <Entry x:Name="Comment" TextColor="#fff" PlaceholderColor="Gray" Placeholder="Write a Comment" HorizontalOptions="FillAndExpand"/>
+                <Button Margin="0, 15" Text="SEND" Clicked="sendComment" TextColor="#000" BackgroundColor="#ddc686"/>
+            </StackLayout>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

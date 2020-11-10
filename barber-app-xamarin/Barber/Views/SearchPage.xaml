@@ -1,0 +1,147 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             xmlns:forms="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+             xmlns:controls="clr-namespace:Barber.Controls;assembly=Barber"
+             xmlns:transformations="clr-namespace:FFImageLoading.Transformations;assembly=FFImageLoading.Transformations"
+             x:Class="Barber.Views.SearchPage">
+    <NavigationPage.TitleView>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="60"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="60"/>
+            </Grid.ColumnDefinitions>
+            <Label Grid.Column="1"
+                    Text="SEARCH"
+                    TextColor="#fff"
+                    HorizontalOptions="CenterAndExpand"
+                    VerticalOptions="CenterAndExpand"
+                    FontSize="22"/>
+        </Grid>
+    </NavigationPage.TitleView>
+    <ContentPage.Content>
+        <StackLayout Spacing="0">
+            <Grid Margin="10">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="*"></RowDefinition>
+                </Grid.RowDefinitions>
+                <StackLayout Grid.Row="0">
+                    <Grid Margin="0, 0, 0, 10">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <SearchBar x:Name="SearchName"
+                       HorizontalOptions="Fill"
+                       VerticalOptions="CenterAndExpand"
+                       Placeholder="NAME"
+                       CancelButtonColor="#ddc686"
+                       PlaceholderColor="Gray"
+                       TextColor="#fff"
+                       HorizontalTextAlignment="Start"
+                       SearchButtonPressed="SearchButtonPressed"/>
+                        <SearchBar x:Name="SearchLocation"
+                       HorizontalOptions="Fill"
+                       Grid.Column="1"
+                       VerticalOptions="CenterAndExpand"
+                       Placeholder="LOCATION"
+                       CancelButtonColor="#ddc686"
+                       TextColor="#fff"
+                       PlaceholderColor="Gray"
+                       HorizontalTextAlignment="Start"
+                       SearchButtonPressed="SearchButtonPressed"/>
+                    </Grid>
+                </StackLayout>
+
+                <StackLayout Grid.Row="1" Spacing="0">
+                    <StackLayout Grid.Row="2" Spacing="0">
+                        <CollectionView ItemsSource="{Binding AllBarbers}" Grid.Row="2" Margin="0, 5, 0, 0">
+                            <CollectionView.ItemsLayout>
+                                <LinearItemsLayout Orientation="Vertical" />
+                            </CollectionView.ItemsLayout>
+                            <CollectionView.ItemTemplate>
+                                <DataTemplate>
+                                    <StackLayout Spacing="0">
+                                        <StackLayout BackgroundColor="#222222" Margin="3">
+                                            <Grid Padding="10, 5, 5, 0" RowSpacing="3">
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition Height="20" />
+                                                    <RowDefinition Height="Auto" />
+                                                    <RowDefinition Height="Auto" />
+                                                    <RowDefinition Height="20" />
+                                                </Grid.RowDefinitions>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="Auto" />
+                                                    <ColumnDefinition Width="*" />
+                                                </Grid.ColumnDefinitions>
+                                                <forms:CachedImage Grid.RowSpan="4" Margin="0, 0, 10, 10" x:Name="" Source="{Binding avatar}"
+                                                    HeightRequest="60" WidthRequest="60"
+                                                    Aspect="AspectFit" BackgroundColor="Transparent">
+                                                    <forms:CachedImage.Transformations>
+                                                        <transformations:CircleTransformation/>
+                                                    </forms:CachedImage.Transformations>
+                                                </forms:CachedImage>
+                                                <Label Grid.Column="1"
+                                                    Grid.Row="0"
+                                                    Text="{Binding fullname}"
+                                                    FontSize="18"
+                                                    TextColor="#fff"/>
+                                                <Label  Grid.Row="1"
+                                                    Grid.Column="1"
+                                                    Text="{Binding location.shopName}"
+                                                    FontSize="12"
+                                                    TextColor="gray" />
+                                                <Label Grid.Row="2"
+                                                    Grid.Column="1"
+                                                    Text="{Binding location.wholeAddress}"
+                                                    TextColor="gray"
+                                                    FontSize="12"/>
+                                                <StackLayout Grid.Row="3" Grid.Column="1" HorizontalOptions="Start">
+                                                    <Grid Margin="0, -10, 0, 0">
+                                                        <Grid.ColumnDefinitions>
+                                                            <ColumnDefinition Width="auto"></ColumnDefinition>
+                                                            <ColumnDefinition Width="80"></ColumnDefinition>
+                                                            <ColumnDefinition Width="auto"></ColumnDefinition>
+                                                            <ColumnDefinition Width="auto"></ColumnDefinition>
+                                                            <ColumnDefinition Width="auto"></ColumnDefinition>
+                                                            <ColumnDefinition Width="auto"></ColumnDefinition>
+                                                        </Grid.ColumnDefinitions>
+                                                        <Label Grid.Column="0" Text="{Binding StrRate}" VerticalOptions="Center" TextColor="#ddc686"></Label>
+                                                        <CollectionView Grid.Column="1" ItemsSource="{Binding rateImages}" HorizontalOptions="End">
+                                                            <CollectionView.ItemsLayout>
+                                                                <LinearItemsLayout Orientation="Horizontal" />
+                                                            </CollectionView.ItemsLayout>
+                                                            <CollectionView.ItemTemplate>
+                                                                <DataTemplate>
+                                                                    <Image BackgroundColor="Transparent" HeightRequest="15" WidthRequest="15" HorizontalOptions="Fill" Source="{Binding image}"/>
+                                                                </DataTemplate>
+                                                            </CollectionView.ItemTemplate>
+                                                        </CollectionView>
+                                                        <Label Grid.Column="2" Text="{Binding StrReview}" VerticalOptions="Center" TextColor="#ddc686"></Label>
+                                                        <Image Grid.Column="3" Source="distance" WidthRequest="15" HeightRequest="15"/>
+                                                        <Label Grid.Column="4" Text="{Binding location.strDistance}" VerticalOptions="Center" TextColor="Gray"></Label>
+                                                        <Image Grid.Column="5" Source="credit_card" WidthRequest="15" HeightRequest="15"/>
+                                                    </Grid>
+                                                </StackLayout>
+                                                <Grid.GestureRecognizers>
+                                                    <TapGestureRecognizer Tapped="barberItemClicked"></TapGestureRecognizer>
+                                                </Grid.GestureRecognizers>
+                                            </Grid>
+                                        </StackLayout>
+                                    </StackLayout>
+                                    
+                                </DataTemplate>
+                            </CollectionView.ItemTemplate>
+                        </CollectionView>
+                    </StackLayout>
+                </StackLayout>
+            </Grid>
+            <BoxView VerticalOptions="EndAndExpand" HeightRequest="1" BackgroundColor="#ddc686"/>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

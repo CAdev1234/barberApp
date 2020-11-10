@@ -1,0 +1,248 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             Title="CREATE EVENT"
+             x:Class="Barber.Views.BarberCreateEventPage">
+    <ContentPage.Content>
+        <StackLayout>
+            <ScrollView VerticalScrollBarVisibility="Never">
+                <StackLayout Padding="5" Spacing="0">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                        </Grid.RowDefinitions>
+                    </Grid>
+                    <StackLayout Grid.Row="0" HeightRequest="50" BackgroundColor="#222222" Padding="10" x:Name="actionPan">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto"/>
+                                <RowDefinition Height="20"/>
+                            </Grid.RowDefinitions>
+                            <Grid Grid.Column="0" HorizontalOptions="Center">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="30"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Image x:Name="appointmentimg" Grid.Column="0" Source="check" WidthRequest="30" HeightRequest="30" VerticalOptions="Start"/>
+                                <Label Grid.Column="1" Padding="5, 3, 0, 0" Text="Appointment" TextColor="#ddc686" FontSize="15"/>
+                                <Grid.GestureRecognizers>
+                                    <TapGestureRecognizer Tapped="appointment"/>
+                                </Grid.GestureRecognizers>
+                            </Grid>
+                            <Grid Grid.Column="1" Grid.Row="0" HorizontalOptions="Center">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="30"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Image x:Name="timeoffimg" Grid.Column="0" Source="uncheck" WidthRequest="30" HeightRequest="30" VerticalOptions="Start"/>
+                                <Label Grid.Column="1" Padding="5, 3, 0, 0" Text="Time off" TextColor="#ddc686" FontSize="15" VerticalOptions="FillAndExpand"/>
+                                <Grid.GestureRecognizers>
+                                    <TapGestureRecognizer Tapped="timeoff"/>
+                                </Grid.GestureRecognizers>
+                            </Grid>
+                            <Label Grid.Row="1" Grid.ColumnSpan="2" FontSize="13" TextColor="gray" Text="Use this for appointments that are not booked through the app."/>
+                        </Grid>
+                    </StackLayout>
+                    <StackLayout x:Name="selectServicePan" IsVisible="false">
+                        <Grid Margin="0, 10, 0, 0">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="20"/>
+                                <RowDefinition Height="auto"/>
+                            </Grid.RowDefinitions>
+                            <Label Grid.Row="0" Text="SELECT A SERVICE" TextColor="#fff" FontSize="15"/>
+                            <StackLayout x:Name="servicePan" Grid.Row="1" HeightRequest="350">
+                                <CollectionView BackgroundColor="#222222" x:Name="Services">
+                                    <CollectionView.ItemsLayout>
+                                        <LinearItemsLayout Orientation="Vertical" />
+                                    </CollectionView.ItemsLayout>
+                                    <CollectionView.ItemTemplate>
+                                        <DataTemplate>
+                                            <Grid Padding="10, 5, 10, 0">
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="auto"/>
+                                                    <ColumnDefinition Width="auto"/>
+                                                    <ColumnDefinition Width="*"/>
+                                                </Grid.ColumnDefinitions>
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition Height="auto"/>
+                                                    <RowDefinition Height="auto"/>
+                                                    <RowDefinition Height="1"/>
+                                                </Grid.RowDefinitions>
+                                                <Label Text="{Binding check}" IsVisible="false"></Label>
+                                                <Image Grid.RowSpan="2" Source="{Binding image}" WidthRequest="25" HeightRequest="25" VerticalOptions="FillAndExpand"/>
+                                                <Label Grid.Row="0" Padding="5, 0, 0, 0" Grid.Column="1" Text="{Binding name}" FontSize="15" FontAttributes="Bold" TextColor="#fff"></Label>
+                                                <Label Grid.Row="1" Padding="5, 0, 0, 0" Grid.Column="1" Text="{Binding duration}" FontSize="13" TextColor="#fff"></Label>
+                                                <Label Grid.Row="0" Grid.RowSpan="2" Grid.Column="2" Grid.ColumnSpan="2" Text="{Binding price}" VerticalOptions="Center" HorizontalOptions="End" FontSize="13" TextColor="#fff"></Label>
+                                                <BoxView HeightRequest="1"
+                                                            BackgroundColor="Black"
+                                                            Grid.Row="2"
+                                                            Grid.ColumnSpan="4"/>
+                                                <Grid.GestureRecognizers>
+                                                    <TapGestureRecognizer Tapped="serviceItemClicked"/>
+                                                </Grid.GestureRecognizers>
+                                            </Grid>
+                                        </DataTemplate>
+                                    </CollectionView.ItemTemplate>
+                                </CollectionView>
+                            </StackLayout>
+                        </Grid>
+                    </StackLayout>
+                    <StackLayout IsVisible="false" x:Name="titlePan" BackgroundColor="#222222" Margin="0, 10, 0, 0" Padding="5">
+                        <Entry
+                            Grid.Column="0"
+                            Grid.ColumnSpan="2"
+                            HorizontalOptions="FillAndExpand"
+                            Placeholder="Title"
+                            x:Name="title"
+                            FontSize="15"
+                            TextColor="#fff"
+                            PlaceholderColor="Gray" />
+                        <!--<Picker VerticalOptions="CenterAndExpand" TextColor="#fff">
+                        <Picker.Items>
+                            <x:String>Item 1</x:String>
+                            <x:String>Item 2</x:String>
+                        </Picker.Items>
+                    </Picker>-->
+                    </StackLayout>
+                    <Label Margin="0, 10, 0, 0" Text="SELECT DATE" FontSize="15" TextColor="#fff"></Label>
+                    <StackLayout Padding="5" Margin="0, 5, 0, 0" BackgroundColor="#222222">
+                        <DatePicker Format="MM/dd/yyyy" FontSize="15" TextColor="#fff"></DatePicker>
+                    </StackLayout>
+                    <StackLayout x:Name="appTimePan" IsVisible="false">
+                        <Label Margin="0, 10, 0, 0" Text="SELECT TIME" FontSize="15" TextColor="#fff"></Label>
+                        <StackLayout Margin="0, 5, 0, 0" HeightRequest="50" BackgroundColor="#222222" Padding="10">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="auto"/>
+                                    <RowDefinition Height="20"/>
+                                </Grid.RowDefinitions>
+                                <Grid Grid.Column="0" HorizontalOptions="Center">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="30"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Image x:Name="availableimg" Grid.Column="0" Source="check" WidthRequest="30" HeightRequest="30" VerticalOptions="Start"/>
+                                    <Label Grid.Column="1" Padding="5, 3, 0, 0" Text="Available       " TextColor="#ddc686" FontSize="15"/>
+                                    <Grid.GestureRecognizers>
+                                        <TapGestureRecognizer Tapped="available_Clicked"/>
+                                    </Grid.GestureRecognizers>
+                                </Grid>
+                                <Grid Grid.Column="1" Grid.Row="0" HorizontalOptions="Center">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="30"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Image Grid.Column="0" x:Name="customimg" Source="uncheck" WidthRequest="30" HeightRequest="30" VerticalOptions="Start"/>
+                                    <Label Grid.Column="1" Padding="5, 3, 0, 0" Text="Custom" TextColor="#ddc686" FontSize="15" VerticalOptions="FillAndExpand"/>
+                                    <Grid.GestureRecognizers>
+                                        <TapGestureRecognizer Tapped="custom_Clicked"/>
+                                    </Grid.GestureRecognizers>
+                                </Grid>
+                                <Label x:Name="timeStatus" Grid.Row="1" Grid.ColumnSpan="2" FontSize="13" TextColor="gray" Text="Override your availablity, hours, and booking preferences."/>
+                            </Grid>
+                        </StackLayout>
+                        <StackLayout x:Name="availableTimePan" HeightRequest="40">
+                            <CollectionView x:Name="Times">
+                                <CollectionView.ItemsLayout>
+                                    <LinearItemsLayout Orientation="Horizontal" />
+                                </CollectionView.ItemsLayout>
+                                <CollectionView.ItemTemplate>
+                                    <DataTemplate>
+                                        <Grid Padding="5, 0, 5, 0">
+                                            <Button Text="{Binding hour}" CornerRadius="20" TextColor="#ddc686" BackgroundColor="#000"/>
+                                        </Grid>
+                                    </DataTemplate>
+                                </CollectionView.ItemTemplate>
+                            </CollectionView>
+                        </StackLayout>
+                        <StackLayout x:Name="customTimePan" IsVisible="false" BackgroundColor="#222222" Padding="5" Margin="0, 1, 0, 0">
+                            <TimePicker Format="hh:mm" TextColor="#fff" FontSize="15"></TimePicker>
+                        </StackLayout>
+                        <StackLayout BackgroundColor="#222222" Padding="5" Margin="0, 1, 0, 0">
+                            <Label Text="RECOURRING" TextColor="gray"></Label>
+                            <Label Text="NEVER" TextColor="#fff"></Label>
+                        </StackLayout>
+                        <StackLayout Margin="0, 10, 0, 0">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Label Grid.Column="0" Text="CLIENT INFORMATION" TextColor="#fff" FontSize="15"/>
+                                <Label Grid.Column="1" HorizontalTextAlignment="End" TextColor="#ddc686" FontSize="15" Text="CONTACTS"/>
+                            </Grid>
+                        </StackLayout>
+                        <StackLayout BackgroundColor="#222222" Padding="0" Margin="0, 1, 0, 0">
+                            <Entry Placeholder="Name" PlaceholderColor="gray"></Entry>
+                        </StackLayout>
+                        <StackLayout BackgroundColor="#222222" Padding="5">
+                            <Entry Placeholder="Phone Number" PlaceholderColor="Gray" TextColor="gray" FontSize="15"></Entry>
+                            <Label Text="If provided, a confirmation text will be sent to client." TextColor="gray"></Label>
+                        </StackLayout>
+                    </StackLayout>
+                    <StackLayout x:Name="offTimePan" Margin="0, 10, 0, 0" BackgroundColor="#222222" Padding="5">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Label Padding="5, 0, 0, 0" Text="All Day" VerticalOptions="Center" TextColor="#fff" FontSize="17"/>
+                            <Switch x:Name="swAllday" Scale="1.3" Toggled="Switch_Toggled" Grid.Column="1" VerticalOptions="Center" HorizontalOptions="End" OnColor="black" ThumbColor="#ddc686"/>
+                        </Grid>
+                        <TimePicker x:Name="tmCustom" FontSize="15" TextColor="#fff"/>
+                        <Entry Placeholder="Duration" PlaceholderColor="gray" TextColor="#fff" Keyboard="Numeric"/>
+                        <Picker Title="Recurring" SelectedIndexChanged="Picker_SelectedIndexChanged" TitleColor="#fff" SelectedIndex="0" TextColor="#fff" FontSize="15" >
+                            <Picker.Items>
+                                <x:String>Never</x:String>
+                                <x:String>Every weeks</x:String>
+                                <x:String>Every 1 weeks</x:String>
+                                <x:String>Every 2 weeks</x:String>
+                                <x:String>Every 3 weeks</x:String>
+                                <x:String>Every 4 weeks</x:String>
+                                <x:String>Every 5 weeks</x:String>
+                                <x:String>Every 6 weeks</x:String>
+                                <x:String>Every 7 weeks</x:String>
+                                <x:String>Every 8 weeks</x:String>
+                                <x:String>Every 9 weeks</x:String>
+                                <x:String>Every 10 weeks</x:String>
+                                <x:String>Every 11 weeks</x:String>
+                                <x:String>Every 12 weeks</x:String>
+                            </Picker.Items>
+                        </Picker>
+                        <DatePicker Format="MM/dd/yyyy" DateSelected="DatePicker_DateSelected" FontSize="15" TextColor="#fff"/>
+                        <StackLayout HeightRequest="40">
+                            <CollectionView x:Name="Dates">
+                                <CollectionView.ItemsLayout>
+                                    <LinearItemsLayout Orientation="Horizontal" />
+                                </CollectionView.ItemsLayout>
+                                <CollectionView.ItemTemplate>
+                                    <DataTemplate>
+                                        <Grid Padding="5, 0, 5, 0">
+                                            <Button Text="{Binding hour}" CornerRadius="20" TextColor="#ddc686" BackgroundColor="#000"/>
+                                        </Grid>
+                                    </DataTemplate>
+                                </CollectionView.ItemTemplate>
+                            </CollectionView>
+                        </StackLayout>
+                    </StackLayout>
+                </StackLayout>
+            </ScrollView>
+            <BoxView HeightRequest="1" VerticalOptions="EndAndExpand" BackgroundColor="#ddc686"/>
+        </StackLayout>
+        
+    </ContentPage.Content>
+</ContentPage>

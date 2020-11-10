@@ -1,0 +1,53 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             xmlns:viewmodels="clr-namespace:Barber.ViewModels"
+             xmlns:forms="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+             xmlns:transformations="clr-namespace:FFImageLoading.Transformations;assembly=FFImageLoading.Transformations"
+             x:Class="Barber.Views.GalleryViewPage">
+    <NavigationPage.TitleView>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="55"/>
+            </Grid.ColumnDefinitions>
+            <StackLayout Grid.Column="1">
+                <ImageButton
+                        Source="iDelete"
+                        VerticalOptions="CenterAndExpand"
+                        BackgroundColor="Transparent"
+                        HorizontalOptions="End"
+                        WidthRequest="24"
+                        HeightRequest="24"
+                        Command="{Binding DeleteCommand}"/>
+            </StackLayout>
+        </Grid>
+    </NavigationPage.TitleView>
+    <StackLayout>
+
+        <StackLayout Margin="10" >
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                    <ColumnDefinition Width="50"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+            </Grid>
+            <CarouselView ItemsSource="{Binding Gallerys}"
+                      CurrentItemChangedCommand="{Binding ItemChangedCommand}"
+                      CurrentItemChangedCommandParameter="{Binding Source={RelativeSource Self}, Path=CurrentItem}"
+                      PositionChangedCommand="{Binding PositionChangedCommand}"
+                      PositionChangedCommandParameter="{Binding Source={RelativeSource Self}, Path=Position}">
+                <CarouselView.ItemTemplate>
+                    <DataTemplate>
+                        <Image Source="{Binding image}"
+                               HorizontalOptions="CenterAndExpand"
+                               VerticalOptions="CenterAndExpand"/>
+                    </DataTemplate>
+                </CarouselView.ItemTemplate>
+            </CarouselView>
+        </StackLayout>
+    </StackLayout>
+</ContentPage>

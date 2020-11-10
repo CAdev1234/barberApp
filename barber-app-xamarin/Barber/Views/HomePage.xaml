@@ -1,0 +1,203 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             xmlns:badgeButton="clr-namespace:Xamarin.CustomControls;assembly=Xamarin.CustomControls.BadgeButton"
+             xmlns:forms="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+             xmlns:transformations="clr-namespace:FFImageLoading.Transformations;assembly=FFImageLoading.Transformations"
+             x:Class="Barber.Views.HomePage" >
+        <NavigationPage.TitleView>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="60"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="60"/>
+                </Grid.ColumnDefinitions>
+                <Label Grid.Column="1"
+                    Text="HOME"
+                    TextColor="#fff"
+                    HorizontalOptions="CenterAndExpand"
+                    VerticalOptions="CenterAndExpand"
+                    FontSize="22"/>
+                <StackLayout Grid.Column="2" Padding="5" HorizontalOptions="End" Orientation="Horizontal">
+                <badgeButton:BadgeButton x:Name="NewBadge" Clicked="GoNotificatinPage" WidthRequest="40" HeightRequest="40" ImageSource="iAlarm" BadgeBackgroundColor="#ddc686" BadgeTextColor="#000" HideBadgeIfTextIsZero="True" BadgeText="0" BadgeFontSize="10" Margin="0, 10"></badgeButton:BadgeButton>
+                </StackLayout>
+        </Grid>
+        </NavigationPage.TitleView>
+    <ContentPage.Content>
+        <StackLayout Spacing="0">
+            <ScrollView VerticalScrollBarVisibility="Never">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="180"/>
+                        <RowDefinition Height="2*"/>
+                    </Grid.RowDefinitions>
+                    <StackLayout Grid.Row="0"
+                HorizontalOptions="Center"
+                VerticalOptions="Center"
+                     HeightRequest="100">
+                        <Image Source="profileBack" HeightRequest="100"/>
+                    </StackLayout>
+                    <StackLayout
+            Grid.Row="0"
+            HeightRequest="150"
+            HorizontalOptions="CenterAndExpand"
+            VerticalOptions="CenterAndExpand">
+
+                        <forms:CachedImage Margin="0, 10, 0, 0" x:Name="Avatar" 
+                                           HeightRequest="120" WidthRequest="120"
+                                           Aspect="AspectFit" BackgroundColor="Transparent">
+                            <forms:CachedImage.Transformations>
+                                <transformations:CircleTransformation/>
+                            </forms:CachedImage.Transformations>
+                            <forms:CachedImage.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="editProfile"/>
+                            </forms:CachedImage.GestureRecognizers>
+                        </forms:CachedImage>
+
+                        <Label
+                x:Name="FullName"
+                TextColor="#fff"
+                HorizontalOptions="CenterAndExpand"
+                VerticalOptions="CenterAndExpand"
+                FontSize="24"/>
+                    </StackLayout>
+                    <StackLayout Grid.Row="1">
+                        <StackLayout>
+                            <Grid HeightRequest="220" BackgroundColor="#393939">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="auto"/>
+                                    <RowDefinition Height="*"/>
+                                </Grid.RowDefinitions>
+                                <StackLayout 
+                            Grid.Row="0"
+                            BackgroundColor="#111111">
+                                    <BoxView Color="#000" HeightRequest="4"/>
+                                    <Grid Padding="10, 5, 10, 10">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="35"/>
+                                        </Grid.ColumnDefinitions>
+                                        <Label
+                                    Grid.Column="0"
+                                    Text="MY BARBERS"
+                                    TextColor="#fff"
+                                    VerticalOptions="CenterAndExpand"
+                                    FontSize="18"/>
+                                        <ImageButton
+                                    Grid.Column="1"
+                                    Source="iSearch"
+                                    WidthRequest="24"
+                                    HeightRequest="24"
+                                    BackgroundColor="Transparent"
+                                    HorizontalOptions="Center"
+                                    Clicked="GoSearchPage"
+                                    VerticalOptions="Center" />
+                                    </Grid>
+                                </StackLayout>
+                                <StackLayout Grid.Row="1" Padding="4">
+                                    <CollectionView ItemsSource="{Binding MyBarbers}">
+                                        <CollectionView.ItemsLayout>
+                                            <LinearItemsLayout Orientation="Horizontal" />
+                                        </CollectionView.ItemsLayout>
+                                        <CollectionView.ItemTemplate>
+                                            <DataTemplate>
+                                                <StackLayout
+                                        Padding="5, -5, 10, 0"
+                                            WidthRequest="120"
+                                            HeightRequest="140"
+                                            VerticalOptions="Center"
+                                            HorizontalOptions="Start">
+                                                    <Grid>
+                                                        <Grid.RowDefinitions>
+                                                            <RowDefinition Height="auto"></RowDefinition>
+                                                        </Grid.RowDefinitions>
+                                                        <Frame Grid.Row="0" Padding="2" OutlineColor="#fff"  CornerRadius="2" HeightRequest="140" WidthRequest="120" Opacity="0.5" IsClippedToBounds="true">
+                                                            <Grid>
+                                                                <Image Source="{Binding avatar}" Aspect="AspectFill"/>
+                                                            </Grid>
+                                                        </Frame>
+                                                        <StackLayout Grid.Row="0" Padding="0, 15, 0, 0">
+                                                            <forms:CachedImage x:Name="mybarberimg" Margin="0" Source="{Binding avatar}"
+                                                       HeightRequest="80" WidthRequest="80"
+                                                       Aspect="AspectFit" BackgroundColor="Transparent">
+                                                                <forms:CachedImage.Transformations>
+                                                                    <transformations:CircleTransformation/>
+                                                                </forms:CachedImage.Transformations>
+                                                                <forms:CachedImage.GestureRecognizers>
+                                                                    <!--<TapGestureRecognizer Tapped=""/>-->
+                                                                </forms:CachedImage.GestureRecognizers>
+                                                            </forms:CachedImage>
+                                                            <ActivityIndicator Scale="0.1" IsVisible="{Binding IsLoading, Source={x:Reference mybarberimg}}" IsRunning="True" Color="#ddc686"/>
+                                                        </StackLayout>
+                                                        <Label Grid.Row="0" TextColor="#fff" HorizontalTextAlignment="Center" VerticalOptions="CenterAndExpand" Margin="0, 65, 0, 0" FontSize="15" FontAttributes="Bold" Text="{Binding fullname}"/>
+                                                        <Grid.GestureRecognizers>
+                                                            <TapGestureRecognizer Tapped="barberItemClicked"/>
+                                                        </Grid.GestureRecognizers>
+                                                    </Grid>
+                                                    <Button Margin="0, -30, 0, 0"
+                                                Padding="0"
+                                                HeightRequest="30"
+                                                Text="Book Appointment"
+                                                Clicked="book_Clicked"
+                                                BackgroundColor="#ddc686"
+                                                FontSize="11"></Button>
+                                                </StackLayout>
+                                            </DataTemplate>
+                                        </CollectionView.ItemTemplate>
+                                    </CollectionView>
+                                </StackLayout>
+                            </Grid>
+                            <Grid HeightRequest="220" BackgroundColor="#393939">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="auto"/>
+                                    <RowDefinition Height="*"/>
+                                </Grid.RowDefinitions>
+                                <StackLayout 
+                            Grid.Row="0"
+                            BackgroundColor="#111111">
+                                    <BoxView Color="#000" HeightRequest="4"/>
+                                    <Grid Padding="10, 5, 10, 10">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="150"/>
+                                        </Grid.ColumnDefinitions>
+                                        <Label
+                                    Grid.Column="0"
+                                    Text="MY CUTS"
+                                    TextColor="#fff"
+                                    VerticalOptions="CenterAndExpand"
+                                    FontSize="18"/>
+                                        <ImageButton WidthRequest="24" HeightRequest="24" BackgroundColor="Transparent" HorizontalOptions="End" Clicked="addCutPhoto" Source="iAdd" Grid.Column="1"></ImageButton>
+                                    </Grid>
+                                </StackLayout>
+                                <StackLayout Grid.Row="1" Padding="5, 0, 0, 5">
+                                    <CollectionView Grid.Row="1" ItemsSource="{Binding MyCuts}" x:Name="Cuts">
+                                        <CollectionView.ItemsLayout>
+                                            <LinearItemsLayout Orientation="Horizontal" />
+                                        </CollectionView.ItemsLayout>
+                                        <CollectionView.ItemTemplate>
+                                            <DataTemplate>
+                                                <StackLayout Padding="5, 5, 8, 5">
+                                                    <Frame Grid.Row="0" Padding="2" OutlineColor="#fff"  CornerRadius="2" HeightRequest="140" WidthRequest="115" IsClippedToBounds="true">
+                                                        <Grid>
+                                                            <ImageButton x:Name="MyImage" Clicked="GoCutViewPage" Source="{Binding sz_cuts}" Aspect="AspectFill"/>
+                                                            <ActivityIndicator Scale="0.1" IsVisible="{Binding IsLoading, Source={x:Reference MyImage}}" IsRunning="True" Color="#ddc686"/>
+                                                        </Grid>
+                                                    </Frame>
+                                                </StackLayout>
+                                            </DataTemplate>
+                                        </CollectionView.ItemTemplate>
+                                    </CollectionView>
+                                </StackLayout>
+                            </Grid>
+                        </StackLayout>
+                    </StackLayout>
+                </Grid>
+            </ScrollView>
+            <BoxView HeightRequest="1" BackgroundColor="#ddc686"/>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

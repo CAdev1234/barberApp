@@ -1,0 +1,394 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             BackgroundColor="#131313"
+             x:Class="Barber.Views.SettingPage">
+    <NavigationPage.TitleView>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="auto"/>
+            </Grid.ColumnDefinitions>
+            <StackLayout Grid.Column="0" Padding="0, 10, 0, 0">
+                <Label Text="SETTINGS" x:Name="TitleBar" FontSize="22" TextColor="#fff" VerticalOptions="Center"></Label>
+            </StackLayout>
+            <StackLayout Grid.Column="1">
+                <Button Text="LOG OUT" Clicked="logout" BackgroundColor="Transparent" Padding="0, 0, 5, 0" FontSize="15" TextColor="#ddc686"></Button>
+            </StackLayout>
+        </Grid>
+    </NavigationPage.TitleView>
+    <ContentPage.Content>
+        <StackLayout Spacing="0">
+            <ScrollView VerticalScrollBarVisibility="Never">
+                <Grid Padding="10, 10, 10, 0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Grid Grid.Row="0" x:Name="grid_account" Margin="0, 0, 0, 10">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto"></RowDefinition>
+                            <RowDefinition Height="auto"></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <Label Grid.Row="0" Text="ACCOUNT" TextColor="#fff" FontSize="16"></Label>
+                        <Grid Grid.Row="1" BackgroundColor="#222222" Padding="10">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto"></RowDefinition>
+                                <RowDefinition Height="1"></RowDefinition>
+                                <RowDefinition Height="auto"></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <Grid Grid.Row="0" VerticalOptions="Start">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="auto"></ColumnDefinition>
+                                    <ColumnDefinition Width="*"></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                <Image Margin="5, 0, 0, 0" WidthRequest="20" HeightRequest="30" Grid.Column="0" HorizontalOptions="Start" Source="iSearch"></Image>
+                                <Label TextColor="#fff" VerticalOptions="Center" HorizontalOptions="Start" Grid.Column="1" Text="Edit Account"></Label>
+                                <Grid.GestureRecognizers>
+                                    <TapGestureRecognizer Tapped="settingItemClicked"/>
+                                </Grid.GestureRecognizers>
+                            </Grid>
+                            <BoxView HeightRequest="1"
+                                        BackgroundColor="Black"
+                                        Grid.Row="1"/>
+                            <Grid Grid.Row="2" VerticalOptions="Start">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="auto"></ColumnDefinition>
+                                    <ColumnDefinition Width="*"></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                <Image Margin="5, 0, 0, 0" WidthRequest="20" HeightRequest="30" Grid.Column="0" HorizontalOptions="Start" Source="iSearch"></Image>
+                                <Label TextColor="#fff" VerticalOptions="Center" HorizontalOptions="Start" Grid.Column="1" Text="Change Password"></Label>
+                                <Grid.GestureRecognizers>
+                                    <TapGestureRecognizer Tapped="settingItemClicked"/>
+                                </Grid.GestureRecognizers>
+                            </Grid>
+                        </Grid>
+                    </Grid>
+                    <Grid Grid.Row="1" x:Name="grid_payment" Margin="0, 0, 0, 10">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto"></RowDefinition>
+                            <RowDefinition Height="auto"></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <Label Grid.Row="0" Text="PAYMENT" TextColor="#fff" FontSize="16"></Label>
+                        <Grid Grid.Row="1" BackgroundColor="#222222" Padding="10">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto"></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <Grid Grid.Row="0" VerticalOptions="Start">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="auto"></ColumnDefinition>
+                                    <ColumnDefinition Width="*"></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                <Image Margin="5, 0, 0, 0" WidthRequest="20" HeightRequest="30" Grid.Column="0" HorizontalOptions="Start" Source="iSearch"></Image>
+                                <Label TextColor="#fff" VerticalOptions="Center" HorizontalOptions="Start" Grid.Column="1" Text="Payment Method"></Label>
+                                <Grid.GestureRecognizers>
+                                    <TapGestureRecognizer Tapped="settingItemClicked"/>
+                                </Grid.GestureRecognizers>
+                            </Grid>
+                        </Grid>
+                    </Grid>
+                    <Grid Grid.Row="2" x:Name="grid_share" Margin="0, 0, 0, 10">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto"></RowDefinition>
+                            <RowDefinition Height="auto"></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <Label Grid.Row="0" Text="SHARE" TextColor="#fff" FontSize="16"></Label>
+                        <Grid Grid.Row="1" BackgroundColor="#222222" Padding="10">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto"></RowDefinition>
+                                <RowDefinition Height="1"></RowDefinition>
+                                <RowDefinition Height="auto"></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <Grid Grid.Row="0" VerticalOptions="Start">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="auto"></ColumnDefinition>
+                                    <ColumnDefinition Width="*"></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                <Image Margin="5, 0, 0, 0" WidthRequest="20" HeightRequest="30" Grid.Column="0" HorizontalOptions="Start" Source="iSearch"></Image>
+                                <Label TextColor="#fff" VerticalOptions="Center" HorizontalOptions="Start" Grid.Column="1" Text="Recommend theCut"></Label>
+                                <Grid.GestureRecognizers>
+                                    <TapGestureRecognizer Tapped="settingItemClicked"/>
+                                </Grid.GestureRecognizers>
+                            </Grid>
+                            <BoxView HeightRequest="1"
+                                        BackgroundColor="Black"
+                                        Grid.Row="1"/>
+                            <Grid Grid.Row="2" VerticalOptions="Start">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="auto"></ColumnDefinition>
+                                    <ColumnDefinition Width="*"></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                <Image Margin="5, 0, 0, 0" WidthRequest="20" HeightRequest="30" Grid.Column="0" HorizontalOptions="Start" Source="iSearch"></Image>
+                                <Label TextColor="#fff" VerticalOptions="Center" HorizontalOptions="Start" Grid.Column="1" Text="Invite Your Barber"></Label>
+                                <Grid.GestureRecognizers>
+                                    <TapGestureRecognizer Tapped="settingItemClicked"/>
+                                </Grid.GestureRecognizers>
+                            </Grid>
+                        </Grid>
+                    </Grid>
+                    <Grid Grid.Row="3" x:Name="grid_contactus" Margin="0, 0, 0, 10">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto"></RowDefinition>
+                            <RowDefinition Height="auto"></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <Label Grid.Row="0" Text="CONTACT US" TextColor="#fff" FontSize="16"></Label>
+                        <Grid Grid.Row="1" BackgroundColor="#222222" Padding="10">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto"></RowDefinition>
+                                <RowDefinition Height="1"></RowDefinition>
+                                <RowDefinition Height="auto"></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <Grid Grid.Row="0" VerticalOptions="Start">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="auto"></ColumnDefinition>
+                                    <ColumnDefinition Width="*"></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                <Image Margin="5, 0, 0, 0" WidthRequest="20" HeightRequest="30" Grid.Column="0" HorizontalOptions="Start" Source="iSearch"></Image>
+                                <Label TextColor="#fff" VerticalOptions="Center" HorizontalOptions="Start" Grid.Column="1" Text="Send Feedback"></Label>
+                                <Grid.GestureRecognizers>
+                                    <TapGestureRecognizer Tapped="settingItemClicked"/>
+                                </Grid.GestureRecognizers>
+                            </Grid>
+                            <BoxView HeightRequest="1"
+                                        BackgroundColor="Black"
+                                        Grid.Row="1"/>
+                            <Grid Grid.Row="2" VerticalOptions="Start">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="auto"></ColumnDefinition>
+                                    <ColumnDefinition Width="*"></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                <Image Margin="5, 0, 0, 0" WidthRequest="20" HeightRequest="30" Grid.Column="0" HorizontalOptions="Start" Source="iSearch"></Image>
+                                <Label TextColor="#fff" VerticalOptions="Center" HorizontalOptions="Start" Grid.Column="1" Text="Support"></Label>
+                                <Grid.GestureRecognizers>
+                                    <TapGestureRecognizer Tapped="settingItemClicked"/>
+                                </Grid.GestureRecognizers>
+                            </Grid>
+                        </Grid>
+                    </Grid>
+                    <Grid Grid.Row="4" x:Name="grid_followus" Margin="0, 0, 0, 10">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto"></RowDefinition>
+                            <RowDefinition Height="auto"></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <Label Grid.Row="0" Text="FOLLOW US" TextColor="#fff" FontSize="16"></Label>
+                        <Grid Grid.Row="1" BackgroundColor="#222222" Padding="10">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto"></RowDefinition>
+                                <RowDefinition Height="1"></RowDefinition>
+                                <RowDefinition Height="auto"></RowDefinition>
+                                <RowDefinition Height="1"></RowDefinition>
+                                <RowDefinition Height="auto"></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <Grid Grid.Row="0" VerticalOptions="Start">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="auto"></ColumnDefinition>
+                                    <ColumnDefinition Width="*"></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                <Image Margin="5, 0, 0, 0" WidthRequest="20" HeightRequest="30" Grid.Column="0" HorizontalOptions="Start" Source="iSearch"></Image>
+                                <Label TextColor="#fff" VerticalOptions="Center" HorizontalOptions="Start" Grid.Column="1" Text="Facebook"></Label>
+                                <Grid.GestureRecognizers>
+                                    <TapGestureRecognizer Tapped="settingItemClicked"/>
+                                </Grid.GestureRecognizers>
+                            </Grid>
+                            <BoxView HeightRequest="1"
+                                        BackgroundColor="Black"
+                                        Grid.Row="1"/>
+                            <Grid Grid.Row="2" VerticalOptions="Start">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="auto"></ColumnDefinition>
+                                    <ColumnDefinition Width="*"></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                <Image Margin="5, 0, 0, 0" WidthRequest="20" HeightRequest="30" Grid.Column="0" HorizontalOptions="Start" Source="iSearch"></Image>
+                                <Label TextColor="#fff" VerticalOptions="Center" HorizontalOptions="Start" Grid.Column="1" Text="Instagram"></Label>
+                                <Grid.GestureRecognizers>
+                                    <TapGestureRecognizer Tapped="settingItemClicked"/>
+                                </Grid.GestureRecognizers>
+                            </Grid>
+                            <BoxView HeightRequest="1"
+                                        BackgroundColor="Black"
+                                        Grid.Row="3"/>
+                            <Grid Grid.Row="4" VerticalOptions="Start">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="auto"></ColumnDefinition>
+                                    <ColumnDefinition Width="*"></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                <Image Margin="5, 0, 0, 0" WidthRequest="20" HeightRequest="30" Grid.Column="0" HorizontalOptions="Start" Source="iSearch"></Image>
+                                <Label TextColor="#fff" VerticalOptions="Center" HorizontalOptions="Start" Grid.Column="1" Text="Twitter"></Label>
+                                <Grid.GestureRecognizers>
+                                    <TapGestureRecognizer Tapped="settingItemClicked"/>
+                                </Grid.GestureRecognizers>
+                            </Grid>
+                        </Grid>
+                    </Grid>
+                    <Grid Grid.Row="5" x:Name="grid_about" Margin="0, 0, 0, 10">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto"></RowDefinition>
+                            <RowDefinition Height="auto"></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <Label Grid.Row="0" Text="ABOUT" TextColor="#fff" FontSize="16"></Label>
+                        <Grid Grid.Row="1" BackgroundColor="#222222" Padding="10">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto"></RowDefinition>
+                                <RowDefinition Height="1"></RowDefinition>
+                                <RowDefinition Height="auto"></RowDefinition>
+                                <RowDefinition Height="1"></RowDefinition>
+                                <RowDefinition Height="auto"></RowDefinition>
+                                <RowDefinition Height="1"></RowDefinition>
+                                <RowDefinition Height="auto"></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <Grid Grid.Row="0" VerticalOptions="Start">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="auto"></ColumnDefinition>
+                                    <ColumnDefinition Width="*"></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                <Image Margin="5, 0, 0, 0" WidthRequest="20" HeightRequest="30" Grid.Column="0" HorizontalOptions="Start" Source="iSearch"></Image>
+                                <Label TextColor="#fff" VerticalOptions="Center" HorizontalOptions="Start" Grid.Column="1" Text="Website"></Label>
+                                <Grid.GestureRecognizers>
+                                    <TapGestureRecognizer Tapped="settingItemClicked"/>
+                                </Grid.GestureRecognizers>
+                            </Grid>
+                            <BoxView HeightRequest="1"
+                                        BackgroundColor="Black"
+                                        Grid.Row="1"/>
+                            <Grid Grid.Row="2" VerticalOptions="Start">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="auto"></ColumnDefinition>
+                                    <ColumnDefinition Width="*"></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                <Image Margin="5, 0, 0, 0" WidthRequest="20" HeightRequest="30" Grid.Column="0" HorizontalOptions="Start" Source="iSearch"></Image>
+                                <Label TextColor="#fff" VerticalOptions="Center" HorizontalOptions="Start" Grid.Column="1" Text="Terms of Service"></Label>
+                                <Grid.GestureRecognizers>
+                                    <TapGestureRecognizer Tapped="settingItemClicked"/>
+                                </Grid.GestureRecognizers>
+                            </Grid>
+                            <BoxView HeightRequest="1"
+                                        BackgroundColor="Black"
+                                        Grid.Row="3"/>
+                            <Grid Grid.Row="4" VerticalOptions="Start">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="auto"></ColumnDefinition>
+                                    <ColumnDefinition Width="*"></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                <Image Margin="5, 0, 0, 0" WidthRequest="20" HeightRequest="30" Grid.Column="0" HorizontalOptions="Start" Source="iSearch"></Image>
+                                <Label TextColor="#fff" VerticalOptions="Center" HorizontalOptions="Start" Grid.Column="1" Text="Privacy Policy"></Label>
+                                <Grid.GestureRecognizers>
+                                    <TapGestureRecognizer Tapped="settingItemClicked"/>
+                                </Grid.GestureRecognizers>
+                            </Grid>
+                            <BoxView HeightRequest="1"
+                                        BackgroundColor="Black"
+                                        Grid.Row="5"/>
+                            <Grid Grid.Row="6" VerticalOptions="Start">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="auto"></ColumnDefinition>
+                                    <ColumnDefinition Width="*"></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                <Image Margin="5, 0, 0, 0" WidthRequest="20" HeightRequest="30" Grid.Column="0" HorizontalOptions="Start" Source="iSearch"></Image>
+                                <Label TextColor="#fff" VerticalOptions="Center" HorizontalOptions="Start" Grid.Column="1" Text="FAQs"></Label>
+                                <Grid.GestureRecognizers>
+                                    <TapGestureRecognizer Tapped="settingItemClicked"/>
+                                </Grid.GestureRecognizers>
+                            </Grid>
+                        </Grid>
+                    </Grid>
+                    <Grid Grid.Row="6" x:Name="grid_more">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto"></RowDefinition>
+                            <RowDefinition Height="auto"></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <Label Grid.Row="0" Text="MORE" TextColor="#fff" FontSize="15"></Label>
+                        <Grid Grid.Row="1" BackgroundColor="#222222" Padding="10">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto"></RowDefinition>
+                                <RowDefinition Height="1"></RowDefinition>
+                                <RowDefinition Height="auto"></RowDefinition>
+                                <RowDefinition Height="1"></RowDefinition>
+                                <RowDefinition Height="auto"></RowDefinition>
+                                <RowDefinition Height="1"></RowDefinition>
+                                <RowDefinition Height="auto"></RowDefinition>
+                                <RowDefinition Height="1"></RowDefinition>
+                                <RowDefinition Height="auto"></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <Grid Grid.Row="0" VerticalOptions="Start">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="auto"></ColumnDefinition>
+                                    <ColumnDefinition Width="*"></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                <Image Margin="5, 0, 0, 0" WidthRequest="20" HeightRequest="30" Grid.Column="0" HorizontalOptions="Start" Source="iSearch"></Image>
+                                <Label TextColor="#fff" VerticalOptions="Center" HorizontalOptions="Start" Grid.Column="1" Text="Visit theStore"></Label>
+                                <Grid.GestureRecognizers>
+                                    <TapGestureRecognizer Tapped="settingItemClicked"/>
+                                </Grid.GestureRecognizers>
+                            </Grid>
+                            <BoxView HeightRequest="1"
+                                        BackgroundColor="Black"
+                                        Grid.Row="1"/>
+                            <Grid Grid.Row="2" VerticalOptions="Start">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="auto"></ColumnDefinition>
+                                    <ColumnDefinition Width="*"></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                <Image Margin="5, 0, 0, 0" WidthRequest="20" HeightRequest="30" Grid.Column="0" HorizontalOptions="Start" Source="iSearch"></Image>
+                                <Label TextColor="#fff" VerticalOptions="Center" HorizontalOptions="Start" Grid.Column="1" Text="Check for Updates"></Label>
+                                <Grid.GestureRecognizers>
+                                    <TapGestureRecognizer Tapped="settingItemClicked"/>
+                                </Grid.GestureRecognizers>
+                            </Grid>
+                            <BoxView HeightRequest="1"
+                                        BackgroundColor="Black"
+                                        Grid.Row="3"/>
+                            <Grid Grid.Row="4" VerticalOptions="Start">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="auto"></ColumnDefinition>
+                                    <ColumnDefinition Width="*"></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                <Image Margin="5, 0, 0, 0" WidthRequest="20" HeightRequest="30" Grid.Column="0" HorizontalOptions="Start" Source="iSearch"></Image>
+                                <Label TextColor="#fff" VerticalOptions="Center" HorizontalOptions="Start" Grid.Column="1" Text="Rate theCut"></Label>
+                                <Grid.GestureRecognizers>
+                                    <TapGestureRecognizer Tapped="settingItemClicked"/>
+                                </Grid.GestureRecognizers>
+                            </Grid>
+                            <BoxView HeightRequest="1"
+                                        BackgroundColor="Black"
+                                        Grid.Row="5"/>
+                            <Grid Grid.Row="6" VerticalOptions="Start">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="auto"></ColumnDefinition>
+                                    <ColumnDefinition Width="*"></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                <Image Margin="5, 0, 0, 0" WidthRequest="20" HeightRequest="30" Grid.Column="0" HorizontalOptions="Start" Source="iSearch"></Image>
+                                <Label TextColor="#fff" VerticalOptions="Center" HorizontalOptions="Start" Grid.Column="1" Text="Special Offers"></Label>
+                                <Grid.GestureRecognizers>
+                                    <TapGestureRecognizer Tapped="settingItemClicked"/>
+                                </Grid.GestureRecognizers>
+                            </Grid>
+                            <BoxView HeightRequest="1"
+                                        BackgroundColor="Black"
+                                        Grid.Row="7"/>
+                            <Grid Grid.Row="8" VerticalOptions="Start">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="auto"></ColumnDefinition>
+                                    <ColumnDefinition Width="*"></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                <Image Margin="5, 0, 0, 0" WidthRequest="20" HeightRequest="30" Grid.Column="0" HorizontalOptions="Start" Source="iSearch"></Image>
+                                <Label TextColor="#fff" VerticalOptions="Center" HorizontalOptions="Start" Grid.Column="1" Text="Take a Survey"></Label>
+                                <Grid.GestureRecognizers>
+                                    <TapGestureRecognizer Tapped="settingItemClicked"/>
+                                </Grid.GestureRecognizers>
+                            </Grid>
+                        </Grid>
+                    </Grid>
+                </Grid>
+            </ScrollView>
+            <BoxView VerticalOptions="EndAndExpand" HeightRequest="1" BackgroundColor="#ddc686"/>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

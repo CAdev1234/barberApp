@@ -1,0 +1,175 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             xmlns:controls="clr-namespace:Barber.Controls;assembly=Barber"
+             xmlns:magic="clr-namespace:MagicGradients;assembly=MagicGradients"
+             x:Class="Barber.Views.AuthPage">
+    <ContentPage.Content>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <StackLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Spacing="0">
+                <magic:GradientView x:Name="GradientPan">
+                    <magic:GradientView.GradientSource>
+                        <magic:LinearGradient Angle="180">
+                            <magic:GradientStop Color="#222222" Offset="0.1" />
+                            <magic:GradientStop Color="#000" Offset="0.5" />
+                        </magic:LinearGradient>
+                    </magic:GradientView.GradientSource>
+                </magic:GradientView>
+            </StackLayout>
+            <Grid Grid.Row="0" Padding="30, 10, 30, 0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="3*"/>
+                    <RowDefinition Height="90"/>
+                </Grid.RowDefinitions>
+                <Image Grid.Row="0" Source="logo" Margin="0,1,0,-10" WidthRequest="50" HeightRequest="50"/>
+                <StackLayout Grid.Row="1">
+                    <Grid  RowSpacing="40"  VerticalOptions="FillAndExpand">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="50"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <Grid Grid.Row="0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <StackLayout Grid.Column="0">
+                                <Button Style="{StaticResource auth_button}"  Text="Log In" VerticalOptions="CenterAndExpand" HorizontalOptions="FillAndExpand" Clicked="loginTab"/>
+                                <BoxView x:Name="loginBorder" Color="#ddc686" HeightRequest="1"/>
+                            </StackLayout>
+                            <StackLayout Grid.Column="1">
+                                <Button Style="{StaticResource auth_button}" Text="Sign Up" VerticalOptions="CenterAndExpand" HorizontalOptions="FillAndExpand" Clicked="signupTab"/>
+                                <BoxView x:Name="registerBorder" IsVisible="false" Color="#ddc686" HeightRequest="1"/>
+                            </StackLayout>
+                        </Grid>
+                        <StackLayout Grid.Row="1" x:Name="loginForm">
+                            <Grid VerticalOptions="FillAndExpand">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="auto"/>
+                                    <RowDefinition Height="auto"/>
+                                    <RowDefinition Height="auto"/>
+                                </Grid.RowDefinitions>
+                                <controls:StandardEntry
+                                    Grid.Row="0"
+                                    Margin="0, 0, 0, 5"
+                                    Padding="10"
+                                    BackgroundColor="#fff"
+                                    CornerRadius="8"
+                                    Placeholder="Email"
+                                    Keyboard ="Email"
+                                    Text="{Binding LoginUser.Email}"
+                                    PlaceholderColor="#000" />
+                                <controls:StandardEntry
+                                    Grid.Row="1"
+                                    Margin="0, 0, 0, 30"
+                                    Padding="10"
+                                    BackgroundColor="#fff"
+                                    CornerRadius="8"
+                                    Text="{Binding LoginUser.Password}"
+                                    Placeholder="Password"
+                                    IsPassword="true" 
+                                    PlaceholderColor="#000" />
+                                <Button Command="{Binding LoginCommand}" Grid.Row="2" Style="{StaticResource sign_button}" Text="Log In" VerticalOptions="CenterAndExpand" HorizontalOptions="FillAndExpand"/>
+                            </Grid>
+                        </StackLayout>
+                        <StackLayout Spacing="0" Grid.Row="1" x:Name="registerForm" IsVisible="false">
+                            <StackLayout Spacing="0">
+                                <Grid Margin="0, 0, 0, 10">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="1*"/>
+                                        <ColumnDefinition Width="1*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <controls:StandardEntry
+                                        Grid.Column="0"
+                                        Padding="10"
+                                        BackgroundColor="#fff"
+                                        TextColor="#000"
+                                        CornerRadius="8"
+                                        Placeholder="First Name"
+                                        x:Name="fName"
+                                        Text="{Binding RegisterUser.FirstName}"
+                                        PlaceholderColor="#000" />
+                                    <controls:StandardEntry
+                                        Grid.Column="1"
+                                        Padding="10"
+                                        TextColor="#000"
+                                        BackgroundColor="#fff"
+                                        CornerRadius="8"
+                                        x:Name="lName"
+                                        Placeholder="Last Name"
+                                        Text="{Binding RegisterUser.LastName}"
+                                        PlaceholderColor="#000" />
+                                </Grid>
+                                <controls:StandardEntry
+                                    Margin="0, 0, 0, 10"
+                                    Padding="10"
+                                        TextColor="#000"
+                                    BackgroundColor="#fff"
+                                    CornerRadius="8"
+                                    x:Name="email"
+                                    Placeholder="Email"
+                                    Text="{Binding RegisterUser.Email}"
+                                    PlaceholderColor="#000" />
+                                <controls:StandardEntry
+                                    Margin="0, 0, 0, 10"
+                                    Padding="10"
+                                        TextColor="#000"
+                                    BackgroundColor="#fff"
+                                    CornerRadius="8"
+                                    IsPassword="true" 
+                                    x:Name="password"
+                                    Placeholder="Password"
+                                    Text="{Binding RegisterUser.Password}"
+                                    PlaceholderColor="#000" />
+                                <controls:StandardEntry
+                                    Margin="0, 0, 0, 10"
+                                    Padding="10"
+                                    IsPassword="true" 
+                                        TextColor="#000"
+                                    BackgroundColor="#fff"
+                                    CornerRadius="8"
+                                    Text="{Binding RegisterUser.ConfirmPassword}"
+                                    x:Name="confirmpassword"
+                                    Placeholder="Password confirm"
+                                    PlaceholderColor="#000" />
+                                <Grid Margin="0, 0, 0, 10">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="auto"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Label 
+                                    Grid.Column="0"
+                                    TextColor="White"
+                                    Text="Are you a barber?"
+                                    FontSize="18"
+                                    HorizontalOptions="Start" />
+                                    <Switch x:Name="swbarber" Grid.Column="1" IsToggled="{Binding RegisterUser.barber}" HorizontalOptions="Start"/>
+                                </Grid>
+                            </StackLayout>
+                            <Button Command="{Binding RegisterCommand}" Style="{StaticResource sign_button}" Text="Sign Up" VerticalOptions="CenterAndExpand" HorizontalOptions="FillAndExpand"/>
+                            <Label
+                                    TextColor="White"
+                                    Text="By signing up, I agree to the Terms of service and Privacy Policy"
+                                    FontSize="12"
+                                    HorizontalOptions="CenterAndExpand" />
+                        </StackLayout>
+                        
+                    </Grid>
+                </StackLayout>
+                <Label Grid.Row="2"
+                    TextColor="White"
+                    Text="@2020 Google"
+                    FontSize="18"
+                    HorizontalOptions="CenterAndExpand"
+                    Margin="20" />
+            </Grid>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

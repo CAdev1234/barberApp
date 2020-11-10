@@ -1,0 +1,93 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             xmlns:controls="clr-namespace:Barber.Controls;assembly=Barber"
+             x:Class="Barber.Views.BookSettingPage">
+
+    <NavigationPage.TitleView>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="auto"/>
+            </Grid.ColumnDefinitions>
+            <StackLayout Grid.Column="0" Padding="0, 10, 0, 0">
+                <Label Text="BOOKING PREFERENCES" x:Name="TitleBar" FontSize="22" TextColor="#fff" VerticalOptions="Center"></Label>
+            </StackLayout>
+            <StackLayout Grid.Column="1">
+                <Button Text="save" Clicked="save" BackgroundColor="Transparent" Padding="0, 0, 5, 0" FontSize="15" TextColor="#ddc686"></Button>
+            </StackLayout>
+        </Grid>
+    </NavigationPage.TitleView>
+    
+    <ContentPage.Content>
+        <StackLayout Spacing="0">
+            <ScrollView VerticalScrollBarVisibility="Never">
+                <StackLayout Padding="10" Spacing="1">
+                    <Label Margin="0,5"  Text="APPOINTMENTS" TextColor="#fff" FontSize="20"/>
+                    <StackLayout Padding="10" BackgroundColor="#222222">
+                        <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" Padding="5, 5, 20, 5">
+                            <Label x:Name="lblAutoConfirm" Text="Auto Confirm" TextColor="Gray" FontSize="18" VerticalOptions="Center"/>
+                            <Switch IsToggled="false" Toggled="swAutoConfirm_Toggled" x:Name="swAutoConfirm" ThumbColor="Gray" Scale="1.2" HorizontalOptions="FillAndExpand" VerticalOptions="Center"/>
+                        </StackLayout>
+                        <Label x:Name="AutoComment" Padding="5,0" Text="All appointments must be manually confirmed." FontSize="13" TextColor="Gray"/>
+                    </StackLayout>
+                    <StackLayout Padding="10" BackgroundColor="#222222">
+                        <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" Padding="5, 5, 20, 5">
+                            <Label x:Name="lblMultiService" Text="Multi Services" TextColor="Gray" FontSize="18" VerticalOptions="Center"/>
+                            <Switch IsToggled="false" x:Name="swMultiService" Toggled="swMultiService_Toggled" ThumbColor="Gray" Scale="1.2" HorizontalOptions="FillAndExpand" VerticalOptions="Center"/>
+                        </StackLayout>
+                        <Label x:Name="MultiComment" Padding="5,0" Text="Appointments can be booked with multiple services." FontSize="13" TextColor="Gray"/>
+                    </StackLayout>
+                    <StackLayout Padding="10" BackgroundColor="#222222">
+                        <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" Padding="5, 5, 15, 5">
+                            <Label x:Name="lblRequirePhone" Text="Require Phone Number" TextColor="Gray" FontSize="18" VerticalOptions="Center"/>
+                            <Switch IsToggled="false" x:Name="swRequirePhone" Toggled="swRequirePhone_Toggled" ThumbColor="Gray" Scale="1.2" HorizontalOptions="FillAndExpand" VerticalOptions="Center"/>
+                        </StackLayout>
+                        <Label x:Name="PhoneComment" Padding="5,0" Text="Clients will not have to provide a phone number when booking." FontSize="13" TextColor="Gray"/>
+                    </StackLayout>
+                    <StackLayout Padding="10" BackgroundColor="#222222">
+                        <Label Padding="5,0" Text="Auto Comment" TextColor="#fff" FontSize="18" VerticalOptions="Center"/>
+                        <Entry x:Name="autoComment" TextColor="#fff" PlaceholderColor="Gray"/>
+                        <Label x:Name="ACommentComment" Padding="5,0" Text="Clients will see this comment on every appointments they book." FontSize="13" TextColor="Gray"/>
+                    </StackLayout>
+
+                    <Label IsVisible="false" Margin="0,10, 0, 5"  Text="AVAILABLITY" TextColor="#fff" FontSize="20"/>
+                    <StackLayout IsVisible="false" Spacing="1" BackgroundColor="#222222" Padding="5">
+                        <StackLayout>
+                            <Label Text="BOOKING INTERVAL" TextColor="Gray"/>
+                            <controls:CustomPicker x:Name="pkInterval" SelectedIndexChanged="pkInterval_SelectedIndexChanged" TextColor="#fff" Title="hour" TitleColor="Gray" FontSize="15"/>
+                            <Label x:Name="InterValComment" Padding="5,0" Text="Appointment can be booked on every 15minutes interval [:00, :30]." FontSize="13" TextColor="Gray"/>
+                            <BoxView HeightRequest="1" BackgroundColor="#000"/>
+                        </StackLayout>
+                        <StackLayout>
+                            <Label Text="Last Minutes Booking Limit" TextColor="Gray"/>
+                            <StackLayout Orientation="Horizontal">
+                                <controls:CustomPicker x:Name="pkLastHour" SelectedIndexChanged="pkLastHour_SelectedIndexChanged" TextColor="#fff" Title="hour" TitleColor="Gray" FontSize="15"/>
+                                <controls:CustomPicker x:Name="pkLastMin" SelectedIndexChanged="pkLastMin_SelectedIndexChanged" TextColor="#fff" Title="minutes" TitleColor="Gray" FontSize="15"/>
+                            </StackLayout>
+                            <Label x:Name="LastComment" Padding="5,0" Text="Appointment can be booked up until the last minutes." FontSize="13" TextColor="Gray"/>
+                            <BoxView HeightRequest="1" BackgroundColor="#000"/>
+                        </StackLayout>
+                        <StackLayout>
+                            <Label Text="Future Booking Limit" TextColor="Gray"/>
+                            <controls:CustomPicker x:Name="pkFutureYear" SelectedIndexChanged="pkFutureYear_SelectedIndexChanged" TextColor="#fff" Title="year" TitleColor="Gray" FontSize="15"/>
+                            <Label x:Name="FutureComment" Padding="5,0" Text="Appointment can be booked up to 1 years in advance." FontSize="13" TextColor="Gray"/>
+                            <BoxView HeightRequest="1" BackgroundColor="#000"/>
+                        </StackLayout>
+                        <StackLayout>
+                            <Label Text="Recurring Booking Limit" TextColor="Gray"/>
+                            <controls:CustomPicker x:Name="pkRecurring" SelectedIndexChanged="pkRecurring_SelectedIndexChanged" TextColor="#fff" Title="month" TitleColor="Gray" FontSize="15"/>
+                            <Label x:Name="RecurringComment" Padding="5,0" Text="You can still create recurring appointments. Clients cannot book recurring appointments on their own." FontSize="13" TextColor="Gray"/>
+                            <BoxView HeightRequest="1" BackgroundColor="#000"/>
+                        </StackLayout>
+                    </StackLayout>
+                </StackLayout>
+            </ScrollView>
+            <BoxView VerticalOptions="EndAndExpand" HeightRequest="1" BackgroundColor="#ddc686"/>
+        </StackLayout>
+        
+    </ContentPage.Content>
+</ContentPage>
